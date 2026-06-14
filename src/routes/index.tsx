@@ -11,7 +11,7 @@ import ig3 from "@/assets/velaro-ig-3.jpg";
 import ig4 from "@/assets/velaro-ig-4.jpg";
 import ig5 from "@/assets/velaro-ig-5.jpg";
 import ig6 from "@/assets/velaro-ig-6.jpg";
-import logoVAsset from "@/assets/velaro-logo-v.png.asset.json";
+import logoVAsset from "@/assets/velaro-logo-full.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
