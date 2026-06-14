@@ -4,7 +4,8 @@ import lifestyleImg from "@/assets/velaro-lifestyle.jpg";
 import noirImg from "@/assets/velaro-noir.jpg";
 import titanImg from "@/assets/velaro-titan.jpg";
 import goldImg from "@/assets/velaro-gold.jpg";
-import packagingImg from "@/assets/velaro-packaging.jpg";
+import packagingAsset from "@/assets/velaro-packaging-new.png.asset.json";
+import specsheetAsset from "@/assets/velaro-specsheet.png.asset.json";
 import ig1 from "@/assets/velaro-ig-1.jpg";
 import ig2 from "@/assets/velaro-ig-2.jpg";
 import ig3 from "@/assets/velaro-ig-3.jpg";
@@ -210,7 +211,7 @@ function LimitedEdition() {
       <div className="absolute inset-x-0 top-0 gold-rule opacity-50" />
       <div className="absolute inset-x-0 bottom-0 gold-rule opacity-50" />
 
-      <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
+      <div className="mx-auto max-w-6xl px-6 text-center sm:px-10">
         <p className="eyebrow">First Production Run · 2026</p>
         <h2 className="mt-8 text-5xl text-foreground sm:text-7xl">
           Limited <em className="gold-text not-italic">First Edition</em> Release
@@ -220,11 +221,33 @@ function LimitedEdition() {
           production run. Each frame is numbered. Each owner becomes part
           of a small, deliberate circle.
         </p>
-        <p className="mt-6 text-sm uppercase tracking-[0.32em] text-gold">
+
+        {/* Featured first edition spec sheet */}
+        <figure className="mt-16 group relative">
+          <div
+            className="absolute -inset-6 -z-10 opacity-50 blur-3xl"
+            style={{ background: "var(--gradient-radial-gold)" }}
+          />
+          <div className="overflow-hidden border border-gold/30 bg-black shadow-[var(--shadow-luxe)]">
+            <img
+              src={specsheetAsset.url}
+              alt="VELARO One — First Edition: Black, Tortoise and Crystal. Technical specifications, materials and included packaging."
+              width={1536}
+              height={1024}
+              loading="lazy"
+              className="w-full object-contain transition-transform duration-[1400ms] ease-out group-hover:scale-[1.02]"
+            />
+          </div>
+          <figcaption className="mt-6 text-[10px] uppercase tracking-[0.32em] text-gold">
+            Velaro One · Black · Tortoise · Crystal
+          </figcaption>
+        </figure>
+
+        <p className="mt-12 text-sm uppercase tracking-[0.32em] text-gold">
           Own a piece of the beginning.
         </p>
 
-        <div className="mt-12 flex items-center justify-center gap-6">
+        <div className="mt-10 flex items-center justify-center gap-6">
           {[{ n: "500", l: "Pieces" }, { n: "03", l: "Frames" }, { n: "01", l: "Edition" }].map((s) => (
             <div key={s.l} className="text-center">
               <div className="text-3xl font-light text-gold sm:text-5xl">{s.n}</div>
@@ -322,7 +345,7 @@ function Packaging() {
             style={{ background: "var(--gradient-radial-gold)" }}
           />
           <img
-            src={packagingImg}
+            src={packagingAsset.url}
             alt="VELARO premium magnetic box, leather case and microfiber cloth"
             width={1600}
             height={1100}
