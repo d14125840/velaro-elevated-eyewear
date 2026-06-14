@@ -37,8 +37,8 @@ function Nav() {
           <a href="#story" className="hover:text-gold transition-colors">Story</a>
           <a href="#packaging" className="hover:text-gold transition-colors">Packaging</a>
         </nav>
-        <a href="#" className="justify-self-center text-2xl font-light tracking-[0.5em] text-foreground sm:text-3xl">
-          VELARO
+        <a href="#" className="justify-self-center">
+          <img src={logoVAsset.url} alt="VELARO" className="h-8 w-auto brightness-110 sm:h-10" />
         </a>
         <nav className="hidden items-center justify-end gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
           <a href="#journal" className="hover:text-gold transition-colors">Journal</a>
