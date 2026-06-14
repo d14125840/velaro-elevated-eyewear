@@ -323,7 +323,7 @@ function Packaging() {
             style={{ background: "var(--gradient-radial-gold)" }}
           />
           <img
-            src={packagingImg}
+            src={packagingAsset.url}
             alt="VELARO premium magnetic box, leather case and microfiber cloth"
             width={1600}
             height={1100}
