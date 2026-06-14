@@ -11,6 +11,7 @@ import ig3 from "@/assets/velaro-ig-3.jpg";
 import ig4 from "@/assets/velaro-ig-4.jpg";
 import ig5 from "@/assets/velaro-ig-5.jpg";
 import ig6 from "@/assets/velaro-ig-6.jpg";
+import logoVAsset from "@/assets/velaro-logo-v.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,8 +37,8 @@ function Nav() {
           <a href="#story" className="hover:text-gold transition-colors">Story</a>
           <a href="#packaging" className="hover:text-gold transition-colors">Packaging</a>
         </nav>
-        <a href="#" className="justify-self-center text-2xl font-light tracking-[0.5em] text-foreground sm:text-3xl">
-          VELARO
+        <a href="#" className="justify-self-center">
+          <img src={logoVAsset.url} alt="VELARO" className="h-8 w-auto brightness-110 sm:h-10" />
         </a>
         <nav className="hidden items-center justify-end gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
           <a href="#journal" className="hover:text-gold transition-colors">Journal</a>
@@ -523,7 +524,7 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_3fr]">
           <div>
-            <div className="text-3xl font-light tracking-[0.4em] text-foreground">VELARO</div>
+            <img src={logoVAsset.url} alt="VELARO" className="h-10 w-auto brightness-110" />
             <p className="mt-6 max-w-sm text-sm font-light leading-relaxed text-muted-foreground">
               Premium polarized eyewear, hand-finished and built for the
               ones who prefer to be seen on their own terms.
