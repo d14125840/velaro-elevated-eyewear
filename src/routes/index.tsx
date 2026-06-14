@@ -524,7 +524,7 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_3fr]">
           <div>
-            <img src={logoVAsset.url} alt="VELARO" className="h-10 w-auto brightness-110" />
+            <img src={logoVAsset.url} alt="VELARO" className="h-12 w-auto brightness-110" />
             <p className="mt-6 max-w-sm text-sm font-light leading-relaxed text-muted-foreground">
               Premium polarized eyewear, hand-finished and built for the
               ones who prefer to be seen on their own terms.
