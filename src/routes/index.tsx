@@ -1,29 +1,600 @@
 import { createFileRoute } from "@tanstack/react-router";
+import heroImg from "@/assets/velaro-hero.jpg";
+import lifestyleImg from "@/assets/velaro-lifestyle.jpg";
+import noirImg from "@/assets/velaro-noir.jpg";
+import titanImg from "@/assets/velaro-titan.jpg";
+import goldImg from "@/assets/velaro-gold.jpg";
+import packagingImg from "@/assets/velaro-packaging.jpg";
+import ig1 from "@/assets/velaro-ig-1.jpg";
+import ig2 from "@/assets/velaro-ig-2.jpg";
+import ig3 from "@/assets/velaro-ig-3.jpg";
+import ig4 from "@/assets/velaro-ig-4.jpg";
+import ig5 from "@/assets/velaro-ig-5.jpg";
+import ig6 from "@/assets/velaro-ig-6.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "VELARO — Crafted for those who stand out" },
+      { name: "description", content: "Premium polarized sunglasses designed for confidence, elegance and everyday luxury. Discover the VELARO Aura Collection." },
+      { property: "og:title", content: "VELARO — Crafted for those who stand out" },
+      { property: "og:description", content: "Premium polarized sunglasses designed for confidence, elegance and everyday luxury." },
+      { property: "og:image", content: heroImg },
+      { name: "twitter:image", content: heroImg },
     ],
   }),
-  component: Index,
+  component: VelaroHome,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+/* ---------- NAV ---------- */
+function Nav() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
+    <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-sm">
+      <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 py-5 sm:px-10">
+        <nav className="hidden items-center gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
+          <a href="#collection" className="hover:text-gold transition-colors">Shop</a>
+          <a href="#story" className="hover:text-gold transition-colors">Story</a>
+          <a href="#packaging" className="hover:text-gold transition-colors">Packaging</a>
+        </nav>
+        <a href="#" className="justify-self-center text-2xl font-light tracking-[0.5em] text-foreground sm:text-3xl">
+          VELARO
+        </a>
+        <nav className="hidden items-center justify-end gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
+          <a href="#journal" className="hover:text-gold transition-colors">Journal</a>
+          <a href="#contact" className="hover:text-gold transition-colors">Contact</a>
+          <a href="#cart" className="text-gold">Bag (0)</a>
+        </nav>
+        <div className="justify-self-end md:hidden">
+          <span className="text-xs uppercase tracking-[0.28em] text-gold">Menu</span>
+        </div>
+      </div>
+      <div className="gold-rule opacity-40" />
+    </header>
+  );
+}
+
+/* ---------- HERO ---------- */
+function Hero() {
+  return (
+    <section className="relative isolate min-h-screen overflow-hidden bg-background grain">
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div
+          className="velaro-glow absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{ background: "var(--gradient-radial-gold)" }}
+        />
+      </div>
+
+      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-6 pt-32 text-center sm:px-10">
+        <p className="eyebrow reveal" style={{ animationDelay: "0.1s" }}>
+          Velaro Signature Collection
+        </p>
+
+        <h1
+          className="reveal mt-8 max-w-5xl text-5xl leading-[1.05] text-foreground sm:text-7xl md:text-[5.5rem]"
+          style={{ animationDelay: "0.3s" }}
+        >
+          Crafted for those who <span className="gold-text italic">stand out</span>.
+        </h1>
+
+        <p
+          className="reveal mt-8 max-w-xl text-base font-light leading-relaxed text-muted-foreground sm:text-lg"
+          style={{ animationDelay: "0.55s" }}
+        >
+          Premium polarized sunglasses designed for confidence, elegance
+          and everyday luxury.
+        </p>
+
+        <div
+          className="reveal mt-12 flex flex-col items-center gap-4 sm:flex-row"
+          style={{ animationDelay: "0.75s" }}
+        >
+          <a href="#collection" className="btn-gold">Shop Now</a>
+          <a href="#story" className="btn-ghost-gold">Discover Velaro</a>
+        </div>
+
+        <div
+          className="reveal-slow relative mt-20 w-full max-w-5xl"
+          style={{ animationDelay: "0.9s" }}
+        >
+          <div
+            className="absolute inset-x-10 top-1/2 -z-10 h-64 -translate-y-1/2 blur-3xl"
+            style={{ background: "var(--gradient-radial-gold)" }}
+          />
+          <img
+            src={heroImg}
+            alt="VELARO signature sunglasses with gold detailing"
+            width={1600}
+            height={1200}
+            className="velaro-float mx-auto w-full select-none object-contain"
+          />
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+          Scroll
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- LIFESTYLE ---------- */
+function Lifestyle() {
+  return (
+    <section className="relative bg-background">
+      <div className="relative h-[70vh] w-full overflow-hidden sm:h-[85vh]">
+        <img
+          src={lifestyleImg}
+          alt="Model wearing VELARO sunglasses in cinematic lighting"
+          width={1920}
+          height={1080}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+
+        <div className="relative z-10 flex h-full items-center">
+          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 px-6 sm:px-10 md:grid-cols-2">
+            <div className="max-w-lg">
+              <p className="eyebrow">The Velaro Atelier</p>
+              <h2 className="mt-6 text-4xl text-foreground sm:text-6xl">
+                More than <em className="gold-text not-italic">eyewear</em>.
+              </h2>
+              <p className="mt-6 text-base font-light leading-relaxed text-foreground/80">
+                VELARO was created for individuals who appreciate timeless
+                style, confidence and attention to detail. Every pair is
+                designed to elevate your presence — from the cut of the
+                acetate to the weight in your hand.
+              </p>
+              <div className="mt-10">
+                <a href="#story" className="btn-ghost-gold">Our philosophy</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- WHY VELARO ---------- */
+const features = [
+  { t: "UV400 Protection", d: "Full-spectrum defense against UVA and UVB radiation.", i: SunIcon },
+  { t: "Polarized Lenses", d: "Cinematic clarity, zero glare. Engineered in Italy.", i: LensIcon },
+  { t: "Premium Materials", d: "Hand-finished acetate and surgical-grade metal alloys.", i: GemIcon },
+  { t: "Lightweight Comfort", d: "Balanced under 28 grams — built for all-day wear.", i: FeatherIcon },
+  { t: "Luxury Packaging", d: "Signature magnetic box, leather case and microfiber.", i: BoxIcon },
+  { t: "30-Day Guarantee", d: "Wear them, live in them, return them. Risk-free.", i: ShieldIcon },
+];
+
+function WhyVelaro() {
+  return (
+    <section className="relative border-t border-border bg-background py-28 sm:py-40">
+      <div className="mx-auto max-w-7xl px-6 sm:px-10">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">Why Velaro</p>
+          <h2 className="mt-6 text-4xl text-foreground sm:text-5xl">
+            Engineered without <span className="gold-text italic">compromise</span>.
+          </h2>
+          <div className="gold-rule mx-auto mt-8 w-24" />
+        </div>
+
+        <div className="mt-20 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border/60 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map(({ t, d, i: Icon }) => (
+            <div
+              key={t}
+              className="group relative bg-background p-10 transition-colors duration-500 hover:bg-card"
+            >
+              <Icon />
+              <h3 className="mt-8 text-2xl text-foreground">{t}</h3>
+              <p className="mt-3 text-sm font-light leading-relaxed text-muted-foreground">{d}</p>
+              <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-700 group-hover:scale-x-100" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- LIMITED EDITION ---------- */
+function LimitedEdition() {
+  return (
+    <section className="relative isolate overflow-hidden bg-black py-32 sm:py-48">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-60"
+        style={{ background: "var(--gradient-radial-gold)" }}
       />
+      <div className="absolute inset-x-0 top-0 gold-rule opacity-50" />
+      <div className="absolute inset-x-0 bottom-0 gold-rule opacity-50" />
+
+      <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
+        <p className="eyebrow">First Production Run · 2026</p>
+        <h2 className="mt-8 text-5xl text-foreground sm:text-7xl">
+          Limited <em className="gold-text not-italic">First Edition</em> Release
+        </h2>
+        <p className="mt-8 text-base font-light leading-relaxed text-foreground/80 sm:text-lg">
+          A limited number of pieces are available during the first
+          production run. Each frame is numbered. Each owner becomes part
+          of a small, deliberate circle.
+        </p>
+        <p className="mt-6 text-sm uppercase tracking-[0.32em] text-gold">
+          Own a piece of the beginning.
+        </p>
+
+        <div className="mt-12 flex items-center justify-center gap-6">
+          {[{ n: "500", l: "Pieces" }, { n: "03", l: "Frames" }, { n: "01", l: "Edition" }].map((s) => (
+            <div key={s.l} className="text-center">
+              <div className="text-3xl font-light text-gold sm:text-5xl">{s.n}</div>
+              <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">{s.l}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12">
+          <a href="#collection" className="btn-gold">Reserve Yours</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- COLLECTION ---------- */
+const products = [
+  { name: "Velaro Noir", frame: "Black frame", lens: "Dark polarized lenses", price: "€79.99", img: noirImg },
+  { name: "Velaro Titan", frame: "Silver frame", lens: "Grey polarized lenses", price: "€79.99", img: titanImg },
+  { name: "Velaro Gold", frame: "Gold frame", lens: "Brown polarized lenses", price: "€79.99", img: goldImg },
+];
+
+function Collection() {
+  return (
+    <section id="collection" className="bg-background py-28 sm:py-40">
+      <div className="mx-auto max-w-7xl px-6 sm:px-10">
+        <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-end">
+          <div>
+            <p className="eyebrow">The Aura Collection</p>
+            <h2 className="mt-6 text-5xl text-foreground sm:text-7xl">
+              Three frames. <span className="gold-text italic">One signature.</span>
+            </h2>
+          </div>
+          <a href="#" className="text-xs uppercase tracking-[0.32em] text-gold hover:underline">View all →</a>
+        </div>
+
+        <div className="mt-20 grid grid-cols-1 gap-12 md:grid-cols-3">
+          {products.map((p) => (
+            <article key={p.name} className="group relative">
+              <div className="relative overflow-hidden bg-card aspect-square">
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                  style={{ background: "var(--gradient-radial-gold)" }}
+                />
+                <img
+                  src={p.img}
+                  alt={`${p.name} — ${p.frame} with ${p.lens}`}
+                  width={1024}
+                  height={1024}
+                  loading="lazy"
+                  className="relative h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-x-0 bottom-0 translate-y-full bg-black/80 p-4 backdrop-blur-md transition-transform duration-500 group-hover:translate-y-0">
+                  <div className="flex gap-3">
+                    <button className="btn-gold flex-1 !py-3 !px-4 !text-[10px]">Add to Cart</button>
+                    <button className="btn-ghost-gold !py-3 !px-4 !text-[10px]">Quick View</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="text-2xl text-foreground">{p.name}</h3>
+                  <p className="mt-1 text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                    {p.frame} · {p.lens}
+                  </p>
+                </div>
+                <div className="shrink-0 text-right">
+                  <div className="text-lg font-light text-gold">{p.price}</div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- PACKAGING ---------- */
+function Packaging() {
+  const items = [
+    "Premium black magnetic box",
+    "Protective leather carrying case",
+    "Microfiber cleaning cloth",
+    "Numbered warranty card",
+  ];
+  return (
+    <section id="packaging" className="relative border-y border-border bg-background py-28 sm:py-40">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 sm:px-10 lg:grid-cols-2">
+        <div className="relative">
+          <div
+            className="absolute -inset-10 -z-10 opacity-60 blur-3xl"
+            style={{ background: "var(--gradient-radial-gold)" }}
+          />
+          <img
+            src={packagingImg}
+            alt="VELARO premium magnetic box, leather case and microfiber cloth"
+            width={1600}
+            height={1100}
+            loading="lazy"
+            className="w-full object-cover shadow-[var(--shadow-luxe)]"
+          />
+        </div>
+
+        <div className="max-w-lg">
+          <p className="eyebrow">The Unboxing</p>
+          <h2 className="mt-6 text-4xl text-foreground sm:text-6xl">
+            Luxury in every <em className="gold-text not-italic">detail</em>.
+          </h2>
+          <p className="mt-6 text-base font-light leading-relaxed text-muted-foreground">
+            Every VELARO order arrives in our signature premium packaging,
+            designed to create a luxury unboxing experience worthy of the
+            piece inside.
+          </p>
+
+          <ul className="mt-10 space-y-5">
+            {items.map((i, idx) => (
+              <li key={i} className="flex items-center gap-5 border-b border-border/60 pb-5">
+                <span className="font-display text-xl text-gold">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span className="text-base font-light text-foreground/90">{i}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- BRAND STORY ---------- */
+function Story() {
+  return (
+    <section id="story" className="relative bg-background py-32 sm:py-48">
+      <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
+        <p className="eyebrow">The Vision Behind Velaro</p>
+        <h2 className="mt-8 text-4xl text-foreground sm:text-6xl">
+          Confidence begins with how you <em className="gold-text not-italic">present yourself</em>.
+        </h2>
+        <div className="gold-rule mx-auto mt-10 w-24" />
+        <div className="mt-10 space-y-6 text-base font-light leading-loose text-muted-foreground sm:text-lg">
+          <p>VELARO was founded with a simple vision.</p>
+          <p>
+            To create premium eyewear that combines luxury aesthetics,
+            superior craftsmanship and accessible pricing — without ever
+            asking the wearer to choose between them.
+          </p>
+          <p className="text-foreground/90">
+            We believe confidence begins with how you present yourself to
+            the world.
+          </p>
+        </div>
+        <p className="mt-12 font-display text-2xl italic text-gold">— The Velaro Atelier</p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- TESTIMONIALS ---------- */
+const testimonials = [
+  { n: "Michael R.", q: "Exceptional quality. People constantly ask where I got them." },
+  { n: "David M.", q: "They look and feel far more expensive than they are." },
+  { n: "James L.", q: "Best sunglasses I have owned." },
+  { n: "Carlos V.", q: "The packaging alone feels premium." },
+  { n: "Alex T.", q: "Elegant, lightweight and stylish." },
+];
+
+function Testimonials() {
+  const loop = [...testimonials, ...testimonials];
+  return (
+    <section className="overflow-hidden border-y border-border bg-card py-28 sm:py-32">
+      <div className="mx-auto mb-16 max-w-7xl px-6 text-center sm:px-10">
+        <p className="eyebrow">Worn worldwide</p>
+        <h2 className="mt-6 text-4xl text-foreground sm:text-5xl">
+          The Velaro <span className="gold-text italic">verdict</span>.
+        </h2>
+      </div>
+
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-card to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-card to-transparent" />
+        <div className="velaro-marquee flex w-max gap-6 px-6">
+          {loop.map((t, i) => (
+            <figure
+              key={i}
+              className="w-[340px] shrink-0 border border-border bg-background p-8"
+            >
+              <div className="text-gold tracking-[0.4em] text-sm">★★★★★</div>
+              <blockquote className="mt-6 font-display text-xl font-light italic leading-relaxed text-foreground">
+                "{t.q}"
+              </blockquote>
+              <figcaption className="mt-6 text-xs uppercase tracking-[0.32em] text-muted-foreground">
+                {t.n} · Verified Owner
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- INSTAGRAM ---------- */
+const igs = [ig1, ig2, ig3, ig4, ig5, ig6];
+
+function Instagram() {
+  return (
+    <section id="journal" className="bg-background py-28 sm:py-32">
+      <div className="mx-auto mb-14 max-w-7xl px-6 text-center sm:px-10">
+        <p className="eyebrow">@velaro.eyewear</p>
+        <h2 className="mt-6 text-4xl text-foreground sm:text-5xl">
+          Join the Velaro <span className="gold-text italic">lifestyle</span>.
+        </h2>
+      </div>
+
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-1 px-1 sm:grid-cols-3 lg:grid-cols-6">
+        {igs.map((src, i) => (
+          <a
+            key={i}
+            href="#"
+            className="group relative block aspect-square overflow-hidden"
+          >
+            <img
+              src={src}
+              alt={`VELARO Instagram lifestyle ${i + 1}`}
+              width={768}
+              height={768}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/40" />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+              <span className="text-xs uppercase tracking-[0.32em] text-gold">View</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div className="mt-12 text-center">
+        <a href="#" className="btn-ghost-gold">Follow Us</a>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- NEWSLETTER ---------- */
+function Newsletter() {
+  return (
+    <section className="relative isolate overflow-hidden border-t border-border bg-background py-28 sm:py-36">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-50"
+        style={{ background: "var(--gradient-radial-gold)" }}
+      />
+      <div className="mx-auto max-w-2xl px-6 text-center sm:px-10">
+        <p className="eyebrow">The Inner Circle</p>
+        <h2 className="mt-6 text-4xl text-foreground sm:text-6xl">
+          Become part of the <em className="gold-text not-italic">inner circle</em>.
+        </h2>
+        <p className="mt-6 text-base font-light leading-relaxed text-muted-foreground">
+          Get early access to new releases, private drops and exclusive
+          offers reserved for members.
+        </p>
+
+        <form
+          className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto]"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <input
+            type="email"
+            required
+            placeholder="your@email.com"
+            className="border border-border bg-transparent px-6 py-4 text-sm tracking-wider text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none"
+          />
+          <button type="submit" className="btn-gold">Subscribe</button>
+        </form>
+        <p className="mt-4 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+          No spam · Unsubscribe anytime
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- FOOTER ---------- */
+function Footer() {
+  const cols = [
+    { h: "Shop", l: ["The Aura Collection", "Limited Edition", "Accessories", "Gift Cards"] },
+    { h: "Velaro", l: ["About", "Journal", "Press", "Sustainability"] },
+    { h: "Support", l: ["Shipping", "Returns", "Warranty", "Contact"] },
+    { h: "Follow", l: ["Instagram", "TikTok", "Pinterest", "YouTube"] },
+  ];
+  return (
+    <footer id="contact" className="border-t border-border bg-background pt-24 pb-10">
+      <div className="mx-auto max-w-7xl px-6 sm:px-10">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_3fr]">
+          <div>
+            <div className="text-3xl font-light tracking-[0.4em] text-foreground">VELARO</div>
+            <p className="mt-6 max-w-sm text-sm font-light leading-relaxed text-muted-foreground">
+              Premium polarized eyewear, hand-finished and built for the
+              ones who prefer to be seen on their own terms.
+            </p>
+            <div className="gold-rule mt-8 w-24" />
+          </div>
+
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
+            {cols.map((c) => (
+              <div key={c.h}>
+                <h4 className="font-sans text-[11px] font-medium uppercase tracking-[0.32em] text-gold">{c.h}</h4>
+                <ul className="mt-6 space-y-3">
+                  {c.l.map((i) => (
+                    <li key={i}>
+                      <a href="#" className="text-sm font-light text-muted-foreground transition-colors hover:text-foreground">
+                        {i}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-[10px] uppercase tracking-[0.32em] text-muted-foreground sm:flex-row">
+          <p>© {new Date().getFullYear()} Velaro Atelier. All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-gold">Privacy Policy</a>
+            <a href="#" className="hover:text-gold">Terms</a>
+            <a href="#" className="hover:text-gold">Cookies</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ---------- ICONS ---------- */
+function IconWrap({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex h-12 w-12 items-center justify-center border border-gold/40 text-gold">
+      {children}
+    </div>
+  );
+}
+function SunIcon() { return <IconWrap><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></IconWrap>; }
+function LensIcon() { return <IconWrap><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><circle cx="7" cy="13" r="4"/><circle cx="17" cy="13" r="4"/><path d="M11 13h2M2 11l2-1M22 11l-2-1"/></svg></IconWrap>; }
+function GemIcon() { return <IconWrap><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M6 9l6-6 6 6-6 12L6 9z M3 9h18"/></svg></IconWrap>; }
+function FeatherIcon() { return <IconWrap><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M20 4c-4 0-9 1-12 4s-4 8-4 12c4 0 9-1 12-4s4-8 4-12zM4 20l8-8M14 10h-4v4"/></svg></IconWrap>; }
+function BoxIcon() { return <IconWrap><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M3 7l9-4 9 4-9 4-9-4zM3 7v10l9 4M21 7v10l-9 4M3 12l9 4 9-4"/></svg></IconWrap>; }
+function ShieldIcon() { return <IconWrap><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M12 2l8 4v6c0 5-4 9-8 10-4-1-8-5-8-10V6l8-4zM9 12l2 2 4-4"/></svg></IconWrap>; }
+
+/* ---------- PAGE ---------- */
+function VelaroHome() {
+  return (
+    <div className="bg-background text-foreground">
+      <Nav />
+      <main>
+        <Hero />
+        <Lifestyle />
+        <WhyVelaro />
+        <LimitedEdition />
+        <Collection />
+        <Packaging />
+        <Story />
+        <Testimonials />
+        <Instagram />
+        <Newsletter />
+      </main>
+      <Footer />
     </div>
   );
 }
