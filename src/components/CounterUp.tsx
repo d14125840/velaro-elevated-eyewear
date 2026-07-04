@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, useCallback } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface CounterUpProps {
   end: number;
@@ -17,19 +18,22 @@ export function CounterUp({
 }: CounterUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const [count, setCount] = useState(0);
+  const hasStartedRef = useRef(false);
   const [hasStarted, setHasStarted] = useState(false);
   const rafRef = useRef<number>(0);
+  const prefersReducedMotion = useReducedMotion();
 
   const handleIntersect = useCallback(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !hasStarted) {
+        if (entry.isIntersecting && !hasStartedRef.current) {
+          hasStartedRef.current = true;
           setHasStarted(true);
           observer.unobserve(entry.target);
         }
       });
     },
-    [hasStarted]
+    []
   );
 
   useEffect(() => {
@@ -49,6 +53,12 @@ export function CounterUp({
 
   useEffect(() => {
     if (!hasStarted) return;
+
+    // If reduced motion is preferred, show end value immediately
+    if (prefersReducedMotion) {
+      setCount(end);
+      return;
+    }
 
     const startTime = performance.now();
 
@@ -74,7 +84,7 @@ export function CounterUp({
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [hasStarted, end, duration]);
+  }, [hasStarted, end, duration, prefersReducedMotion]);
 
   return (
     <span ref={ref} className={className}>

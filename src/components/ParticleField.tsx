@@ -1,4 +1,5 @@
 import { useMemo, type CSSProperties } from "react";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface ParticleFieldProps {
   count?: number;
@@ -12,9 +13,13 @@ interface Particle {
   animationDelay: string;
   size: string;
   opacity: number;
+  driftX: number;
+  keyframeName: string;
 }
 
 export function ParticleField({ count = 25, className = "" }: ParticleFieldProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   const particles: Particle[] = useMemo(() => {
     return Array.from({ length: count }, (_, i) => ({
       id: i,
@@ -23,8 +28,12 @@ export function ParticleField({ count = 25, className = "" }: ParticleFieldProps
       animationDelay: `${(i * 3 + 1) % 8}s`,
       size: `${2 + (i * 11) % 3}px`,
       opacity: 0.2 + ((i * 13) % 5) * 0.1,
+      driftX: Math.round((i * 17 + 7) % 40 - 20),
+      keyframeName: `particleFloat_${i}`,
     }));
   }, [count]);
+
+  if (prefersReducedMotion) return null;
 
   const containerStyle: CSSProperties = {
     position: "absolute",
@@ -42,16 +51,13 @@ export function ParticleField({ count = 25, className = "" }: ParticleFieldProps
     borderRadius: "50%",
     backgroundColor: "#c8a961",
     opacity: p.opacity,
-    animation: `particleFloat ${p.animationDuration} ease-in-out ${p.animationDelay} infinite`,
+    animation: `${p.keyframeName} ${p.animationDuration} ease-in-out ${p.animationDelay} infinite`,
   });
 
-  return (
-    <div className={className} style={containerStyle} aria-hidden="true">
-      {particles.map((p) => (
-        <span key={p.id} style={particleBaseStyle(p)} />
-      ))}
-      <style>{`
-        @keyframes particleFloat {
+  const keyframes = particles
+    .map(
+      (p) => `
+        @keyframes ${p.keyframeName} {
           0% {
             transform: translate3d(0, 0, 0);
             opacity: 0;
@@ -63,11 +69,20 @@ export function ParticleField({ count = 25, className = "" }: ParticleFieldProps
             opacity: 0.2;
           }
           100% {
-            transform: translate3d(${0}px, -100vh, 0);
+            transform: translate3d(${p.driftX}px, -100vh, 0);
             opacity: 0;
           }
         }
-      `}</style>
+      `
+    )
+    .join("\n");
+
+  return (
+    <div className={className} style={containerStyle} aria-hidden="true">
+      {particles.map((p) => (
+        <span key={p.id} style={particleBaseStyle(p)} />
+      ))}
+      <style>{keyframes}</style>
     </div>
   );
 }

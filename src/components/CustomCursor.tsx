@@ -2,6 +2,9 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useMousePosition } from "@/hooks/use-mouse-position";
 
+const INTERACTIVE_SELECTOR =
+  "a, button, [role='button'], img, input, textarea, select, [data-cursor-hover]";
+
 export function CustomCursor() {
   const isMobile = useIsMobile();
   const { x, y } = useMousePosition();
@@ -10,12 +13,18 @@ export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseEnterInteractive = useCallback(() => {
-    setIsHovering(true);
+  const handleMouseOver = useCallback((e: MouseEvent) => {
+    const target = e.target as Element | null;
+    if (target && target.closest(INTERACTIVE_SELECTOR)) {
+      setIsHovering(true);
+    }
   }, []);
 
-  const handleMouseLeaveInteractive = useCallback(() => {
-    setIsHovering(false);
+  const handleMouseOut = useCallback((e: MouseEvent) => {
+    const target = e.target as Element | null;
+    if (target && target.closest(INTERACTIVE_SELECTOR)) {
+      setIsHovering(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -26,25 +35,16 @@ export function CustomCursor() {
 
     document.addEventListener("mouseenter", handleMouseEnter);
     document.addEventListener("mouseleave", handleMouseLeave);
-
-    const interactiveElements = document.querySelectorAll(
-      "a, button, [role='button'], img, input, textarea, select, [data-cursor-hover]"
-    );
-
-    interactiveElements.forEach((el) => {
-      el.addEventListener("mouseenter", handleMouseEnterInteractive);
-      el.addEventListener("mouseleave", handleMouseLeaveInteractive);
-    });
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);
-      interactiveElements.forEach((el) => {
-        el.removeEventListener("mouseenter", handleMouseEnterInteractive);
-        el.removeEventListener("mouseleave", handleMouseLeaveInteractive);
-      });
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
-  }, [isMobile, handleMouseEnterInteractive, handleMouseLeaveInteractive]);
+  }, [isMobile, handleMouseOver, handleMouseOut]);
 
   useEffect(() => {
     if (isMobile) return;

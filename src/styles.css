@@ -323,12 +323,12 @@
   transform: translateY(30px);
   transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
               transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: opacity, transform;
 }
 
 .scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+  will-change: opacity, transform;
 }
 
 /* ─── 6. SCROLL REVEAL VARIANTS ──────────────────────────────── */
@@ -337,12 +337,12 @@
   transform: translateX(-40px);
   transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
               transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: opacity, transform;
 }
 
 .scroll-reveal-left.revealed {
   opacity: 1;
   transform: translateX(0);
+  will-change: opacity, transform;
 }
 
 .scroll-reveal-right {
@@ -350,12 +350,12 @@
   transform: translateX(40px);
   transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
               transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: opacity, transform;
 }
 
 .scroll-reveal-right.revealed {
   opacity: 1;
   transform: translateX(0);
+  will-change: opacity, transform;
 }
 
 .scroll-reveal-scale {
@@ -363,12 +363,12 @@
   transform: scale(0.92);
   transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
               transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: opacity, transform;
 }
 
 .scroll-reveal-scale.revealed {
   opacity: 1;
   transform: scale(1);
+  will-change: opacity, transform;
 }
 
 /* ─── 7. 3D TILT PERSPECTIVE STYLES ──────────────────────────── */
@@ -380,6 +380,9 @@
   transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
   transform-style: preserve-3d;
   transition: transform 0.15s ease-out;
+}
+
+.velaro-tilt-card:hover {
   will-change: transform;
 }
 
@@ -705,19 +708,16 @@
 .velaro-parallax-slow {
   transform: translateY(var(--parallax-y, 0px));
   transition: transform 0.1s linear;
-  will-change: transform;
 }
 
 .velaro-parallax-medium {
   transform: translateY(calc(var(--parallax-y, 0px) * 0.5));
   transition: transform 0.1s linear;
-  will-change: transform;
 }
 
 .velaro-parallax-fast {
   transform: translateY(calc(var(--parallax-y, 0px) * 0.25));
   transition: transform 0.1s linear;
-  will-change: transform;
 }
 
 /* ─── 16. TEXT REVEAL ANIMATION ──────────────────────────────── */
