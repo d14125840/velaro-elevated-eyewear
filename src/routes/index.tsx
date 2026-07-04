@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import heroImg from "@/assets/velaro-hero.jpg";
 import lifestyleImg from "@/assets/velaro-lifestyle.jpg";
 import noirImg from "@/assets/velaro-noir.jpg";
@@ -13,6 +14,15 @@ import ig4 from "@/assets/velaro-ig-4.jpg";
 import ig5 from "@/assets/velaro-ig-5.jpg";
 import ig6 from "@/assets/velaro-ig-6.jpg";
 import logoVAsset from "@/assets/velaro-logo-full.png.asset.json";
+import { LoadingScreen } from "@/components/LoadingScreen";
+import { CustomCursor } from "@/components/CustomCursor";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { SplitText } from "@/components/SplitText";
+import { CounterUp } from "@/components/CounterUp";
+import { TiltCard } from "@/components/TiltCard";
+import { MagneticButton } from "@/components/MagneticButton";
+import { ParticleField } from "@/components/ParticleField";
+import { ImageReveal } from "@/components/ImageReveal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,20 +41,32 @@ export const Route = createFileRoute("/")({
 /* ---------- NAV ---------- */
 function Nav() {
   return (
-    <header className="fixed top-0 z-50 w-full bg-gradient-to-b from-black/80 via-black/40 to-transparent backdrop-blur-sm">
+    <header className="velaro-glass-nav fixed top-0 z-50 w-full">
       <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 py-5 sm:px-10">
         <nav className="hidden items-center gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
-          <a href="#collection" className="hover:text-gold transition-colors">Shop</a>
-          <a href="#story" className="hover:text-gold transition-colors">Story</a>
-          <a href="#packaging" className="hover:text-gold transition-colors">Packaging</a>
+          <MagneticButton strength={0.2}>
+            <a href="#collection" className="hover:text-gold transition-colors">Shop</a>
+          </MagneticButton>
+          <MagneticButton strength={0.2}>
+            <a href="#story" className="hover:text-gold transition-colors">Story</a>
+          </MagneticButton>
+          <MagneticButton strength={0.2}>
+            <a href="#packaging" className="hover:text-gold transition-colors">Packaging</a>
+          </MagneticButton>
         </nav>
         <a href="#" className="justify-self-center">
           <img src={logoVAsset.url} alt="VELARO" className="h-10 w-auto brightness-110 sm:h-12" />
         </a>
         <nav className="hidden items-center justify-end gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
-          <a href="#journal" className="hover:text-gold transition-colors">Journal</a>
-          <a href="#contact" className="hover:text-gold transition-colors">Contact</a>
-          <a href="#cart" className="text-gold">Bag (0)</a>
+          <MagneticButton strength={0.2}>
+            <a href="#journal" className="hover:text-gold transition-colors">Journal</a>
+          </MagneticButton>
+          <MagneticButton strength={0.2}>
+            <a href="#contact" className="hover:text-gold transition-colors">Contact</a>
+          </MagneticButton>
+          <MagneticButton strength={0.2}>
+            <a href="#cart" className="text-gold">Bag (0)</a>
+          </MagneticButton>
         </nav>
         <div className="justify-self-end md:hidden">
           <span className="text-xs uppercase tracking-[0.28em] text-gold">Menu</span>
@@ -59,6 +81,12 @@ function Nav() {
 function Hero() {
   return (
     <section className="relative isolate min-h-screen overflow-hidden bg-background grain">
+      {/* Animated gradient mesh background */}
+      <div className="velaro-gradient-mesh pointer-events-none absolute inset-0 -z-20" />
+
+      {/* Particle field */}
+      <ParticleField count={30} className="-z-5" />
+
       {/* ambient glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div
@@ -72,12 +100,13 @@ function Hero() {
           Velaro Signature Collection
         </p>
 
-        <h1
-          className="reveal mt-8 max-w-5xl text-5xl leading-[1.05] text-foreground sm:text-7xl md:text-[5.5rem]"
-          style={{ animationDelay: "0.3s" }}
-        >
-          Crafted for those who <span className="gold-text italic">stand out</span>.
-        </h1>
+        <SplitText
+          as="h1"
+          text="Crafted for those who stand out."
+          className="mt-8 max-w-5xl text-5xl leading-[1.05] text-foreground sm:text-7xl md:text-[5.5rem]"
+          delay={300}
+          staggerDelay={100}
+        />
 
         <p
           className="reveal mt-8 max-w-xl text-base font-light leading-relaxed text-muted-foreground sm:text-lg"
@@ -91,8 +120,12 @@ function Hero() {
           className="reveal mt-12 flex flex-col items-center gap-4 sm:flex-row"
           style={{ animationDelay: "0.75s" }}
         >
-          <a href="#collection" className="btn-gold">Shop Now</a>
-          <a href="#story" className="btn-ghost-gold">Discover Velaro</a>
+          <MagneticButton>
+            <a href="#collection" className="btn-gold">Shop Now</a>
+          </MagneticButton>
+          <MagneticButton>
+            <a href="#story" className="btn-ghost-gold">Discover Velaro</a>
+          </MagneticButton>
         </div>
 
         <div
@@ -123,34 +156,41 @@ function Hero() {
 /* ---------- LIFESTYLE ---------- */
 function Lifestyle() {
   return (
-    <section className="relative bg-background">
+    <section className="relative bg-background velaro-section-transition">
       <div className="relative h-[70vh] w-full overflow-hidden sm:h-[85vh]">
-        <img
-          src={lifestyleImg}
-          alt="Model wearing VELARO sunglasses in cinematic lighting"
-          width={1920}
-          height={1080}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        <ImageReveal direction="left" duration={1200}>
+          <img
+            src={lifestyleImg}
+            alt="Model wearing VELARO sunglasses in cinematic lighting"
+            width={1920}
+            height={1080}
+            loading="lazy"
+            className="h-[70vh] sm:h-[85vh] w-full object-cover"
+          />
+        </ImageReveal>
         <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
 
-        <div className="relative z-10 flex h-full items-center">
+        <div className="relative z-10 flex h-full items-center absolute inset-0">
           <div className="mx-auto grid w-full max-w-7xl grid-cols-1 px-6 sm:px-10 md:grid-cols-2">
             <div className="max-w-lg">
-              <p className="eyebrow">The Velaro Atelier</p>
-              <h2 className="mt-6 text-4xl text-foreground sm:text-6xl">
-                More than <em className="gold-text not-italic">eyewear</em>.
-              </h2>
-              <p className="mt-6 text-base font-light leading-relaxed text-foreground/80">
+              <p className="eyebrow scroll-reveal">The Velaro Atelier</p>
+              <SplitText
+                as="h2"
+                text="More than eyewear."
+                className="mt-6 text-4xl text-foreground sm:text-6xl"
+                delay={200}
+              />
+              <p className="scroll-reveal mt-6 text-base font-light leading-relaxed text-foreground/80">
                 VELARO was created for individuals who appreciate timeless
                 style, confidence and attention to detail. Every pair is
                 designed to elevate your presence — from the cut of the
                 acetate to the weight in your hand.
               </p>
-              <div className="mt-10">
-                <a href="#story" className="btn-ghost-gold">Our philosophy</a>
+              <div className="scroll-reveal mt-10">
+                <MagneticButton>
+                  <a href="#story" className="btn-ghost-gold">Our philosophy</a>
+                </MagneticButton>
               </div>
             </div>
           </div>
@@ -172,21 +212,30 @@ const features = [
 
 function WhyVelaro() {
   return (
-    <section className="relative border-t border-border bg-background py-28 sm:py-40">
+    <section className="relative border-t border-border bg-background py-28 sm:py-40 velaro-section-transition">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">Why Velaro</p>
-          <h2 className="mt-6 text-4xl text-foreground sm:text-5xl">
-            Engineered without <span className="gold-text italic">compromise</span>.
-          </h2>
-          <div className="gold-rule mx-auto mt-8 w-24" />
+          <p className="eyebrow scroll-reveal">Why Velaro</p>
+          <SplitText
+            as="h2"
+            text="Engineered without compromise."
+            className="mt-6 text-4xl text-foreground sm:text-5xl"
+            delay={100}
+          />
+          <div className="gold-rule mx-auto mt-8 w-24 scroll-reveal" />
         </div>
 
         <div className="mt-20 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border/60 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map(({ t, d, i: Icon }) => (
+          {features.map(({ t, d, i: Icon }, index) => (
             <div
               key={t}
-              className="group relative bg-background p-10 transition-colors duration-500 hover:bg-card"
+              className="spotlight-card group relative bg-background p-10 transition-colors duration-500 hover:bg-card scroll-reveal"
+              style={{ transitionDelay: `${index * 100}ms` }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+              }}
             >
               <Icon />
               <h3 className="mt-8 text-2xl text-foreground">{t}</h3>
@@ -203,7 +252,7 @@ function WhyVelaro() {
 /* ---------- LIMITED EDITION ---------- */
 function LimitedEdition() {
   return (
-    <section className="relative isolate overflow-hidden bg-black py-32 sm:py-48">
+    <section className="relative isolate overflow-hidden bg-black py-32 sm:py-48 velaro-section-transition">
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-60"
         style={{ background: "var(--gradient-radial-gold)" }}
@@ -212,18 +261,22 @@ function LimitedEdition() {
       <div className="absolute inset-x-0 bottom-0 gold-rule opacity-50" />
 
       <div className="mx-auto max-w-6xl px-6 text-center sm:px-10">
-        <p className="eyebrow">First Production Run · 2026</p>
-        <h2 className="mt-8 text-5xl text-foreground sm:text-7xl">
-          Limited <em className="gold-text not-italic">First Edition</em> Release
-        </h2>
-        <p className="mt-8 text-base font-light leading-relaxed text-foreground/80 sm:text-lg">
+        <p className="eyebrow scroll-reveal">First Production Run · 2026</p>
+        <SplitText
+          as="h2"
+          text="Limited First Edition Release"
+          className="mt-8 text-5xl text-foreground sm:text-7xl"
+          delay={100}
+          staggerDelay={120}
+        />
+        <p className="scroll-reveal mt-8 text-base font-light leading-relaxed text-foreground/80 sm:text-lg">
           A limited number of pieces are available during the first
           production run. Each frame is numbered. Each owner becomes part
           of a small, deliberate circle.
         </p>
 
         {/* Featured first edition spec sheet */}
-        <figure className="mt-16 group relative">
+        <figure className="scroll-reveal-scale mt-16 group relative">
           <div
             className="absolute -inset-6 -z-10 opacity-50 blur-3xl"
             style={{ background: "var(--gradient-radial-gold)" }}
@@ -243,21 +296,35 @@ function LimitedEdition() {
           </figcaption>
         </figure>
 
-        <p className="mt-12 text-sm uppercase tracking-[0.32em] text-gold">
+        <p className="scroll-reveal mt-12 text-sm uppercase tracking-[0.32em] text-gold">
           Own a piece of the beginning.
         </p>
 
         <div className="mt-10 flex items-center justify-center gap-6">
-          {[{ n: "500", l: "Pieces" }, { n: "03", l: "Frames" }, { n: "01", l: "Edition" }].map((s) => (
-            <div key={s.l} className="text-center">
-              <div className="text-3xl font-light text-gold sm:text-5xl">{s.n}</div>
-              <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">{s.l}</div>
+          <div className="text-center scroll-reveal">
+            <div className="text-3xl font-light text-gold sm:text-5xl">
+              <CounterUp end={500} duration={2500} />
             </div>
-          ))}
+            <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Pieces</div>
+          </div>
+          <div className="text-center scroll-reveal" style={{ transitionDelay: "100ms" }}>
+            <div className="text-3xl font-light text-gold sm:text-5xl">
+              <CounterUp end={3} prefix="0" duration={2000} />
+            </div>
+            <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Frames</div>
+          </div>
+          <div className="text-center scroll-reveal" style={{ transitionDelay: "200ms" }}>
+            <div className="text-3xl font-light text-gold sm:text-5xl">
+              <CounterUp end={1} prefix="0" duration={1500} />
+            </div>
+            <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Edition</div>
+          </div>
         </div>
 
-        <div className="mt-12">
-          <a href="#collection" className="btn-gold">Reserve Yours</a>
+        <div className="scroll-reveal mt-12">
+          <MagneticButton>
+            <a href="#collection" className="btn-gold">Reserve Yours</a>
+          </MagneticButton>
         </div>
       </div>
     </section>
@@ -273,54 +340,70 @@ const products = [
 
 function Collection() {
   return (
-    <section id="collection" className="bg-background py-28 sm:py-40">
+    <section id="collection" className="bg-background py-28 sm:py-40 velaro-section-transition">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-end">
           <div>
-            <p className="eyebrow">The Aura Collection</p>
-            <h2 className="mt-6 text-5xl text-foreground sm:text-7xl">
-              Three frames. <span className="gold-text italic">One signature.</span>
-            </h2>
+            <p className="eyebrow scroll-reveal">The Aura Collection</p>
+            <SplitText
+              as="h2"
+              text="Three frames. One signature."
+              className="mt-6 text-5xl text-foreground sm:text-7xl"
+              delay={100}
+            />
           </div>
-          <a href="#" className="text-xs uppercase tracking-[0.32em] text-gold hover:underline">View all →</a>
+          <a href="#" className="scroll-reveal text-xs uppercase tracking-[0.32em] text-gold hover:underline">View all →</a>
         </div>
 
         <div className="mt-20 grid grid-cols-1 gap-12 md:grid-cols-3">
-          {products.map((p) => (
-            <article key={p.name} className="group relative">
-              <div className="relative overflow-hidden bg-card aspect-square">
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
-                  style={{ background: "var(--gradient-radial-gold)" }}
-                />
-                <img
-                  src={p.img}
-                  alt={`${p.name} — ${p.frame} with ${p.lens}`}
-                  width={1024}
-                  height={1024}
-                  loading="lazy"
-                  className="relative h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
-                />
-                <div className="absolute inset-x-0 bottom-0 translate-y-full bg-black/80 p-4 backdrop-blur-md transition-transform duration-500 group-hover:translate-y-0">
-                  <div className="flex gap-3">
-                    <button className="btn-gold flex-1 !py-3 !px-4 !text-[10px]">Add to Cart</button>
-                    <button className="btn-ghost-gold !py-3 !px-4 !text-[10px]">Quick View</button>
+          {products.map((p, index) => (
+            <TiltCard key={p.name} className="scroll-reveal" maxTilt={8} scale={1.03}>
+              <article
+                className="spotlight-card group relative"
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                  e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+                }}
+              >
+                <ImageReveal direction="bottom" duration={900} delay={index * 150}>
+                  <div className="relative overflow-hidden bg-card aspect-square">
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                      style={{ background: "var(--gradient-radial-gold)" }}
+                    />
+                    <img
+                      src={p.img}
+                      alt={`${p.name} — ${p.frame} with ${p.lens}`}
+                      width={1024}
+                      height={1024}
+                      loading="lazy"
+                      className="relative h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 translate-y-full bg-black/80 p-4 backdrop-blur-md transition-transform duration-500 group-hover:translate-y-0">
+                      <div className="flex gap-3">
+                        <MagneticButton strength={0.15} className="flex-1">
+                          <button className="btn-gold w-full !py-3 !px-4 !text-[10px]">Add to Cart</button>
+                        </MagneticButton>
+                        <button className="btn-ghost-gold !py-3 !px-4 !text-[10px]">Quick View</button>
+                      </div>
+                    </div>
+                  </div>
+                </ImageReveal>
+
+                <div className="mt-6 flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <h3 className="text-2xl text-foreground">{p.name}</h3>
+                    <p className="mt-1 text-xs uppercase tracking-[0.22em] text-muted-foreground">
+                      {p.frame} · {p.lens}
+                    </p>
+                  </div>
+                  <div className="shrink-0 text-right">
+                    <div className="text-lg font-light text-gold">{p.price}</div>
                   </div>
                 </div>
-              </div>
-
-              <div className="mt-6 flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <h3 className="text-2xl text-foreground">{p.name}</h3>
-                  <p className="mt-1 text-xs uppercase tracking-[0.22em] text-muted-foreground">
-                    {p.frame} · {p.lens}
-                  </p>
-                </div>
-                <div className="shrink-0 text-right">
-                  <div className="text-lg font-light text-gold">{p.price}</div>
-                </div>
-              </div>
-            </article>
+              </article>
+            </TiltCard>
           ))}
         </div>
       </div>
@@ -337,29 +420,34 @@ function Packaging() {
     "Numbered warranty card",
   ];
   return (
-    <section id="packaging" className="relative border-y border-border bg-background py-28 sm:py-40">
+    <section id="packaging" className="relative border-y border-border bg-background py-28 sm:py-40 velaro-section-transition">
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 sm:px-10 lg:grid-cols-2">
-        <div className="relative">
-          <div
-            className="absolute -inset-10 -z-10 opacity-60 blur-3xl"
-            style={{ background: "var(--gradient-radial-gold)" }}
-          />
-          <img
-            src={packagingAsset.url}
-            alt="VELARO premium magnetic box, leather case and microfiber cloth"
-            width={1600}
-            height={1100}
-            loading="lazy"
-            className="w-full object-cover shadow-[var(--shadow-luxe)]"
-          />
-        </div>
+        <ImageReveal direction="left" duration={1100}>
+          <div className="relative">
+            <div
+              className="absolute -inset-10 -z-10 opacity-60 blur-3xl"
+              style={{ background: "var(--gradient-radial-gold)" }}
+            />
+            <img
+              src={packagingAsset.url}
+              alt="VELARO premium magnetic box, leather case and microfiber cloth"
+              width={1600}
+              height={1100}
+              loading="lazy"
+              className="w-full object-cover shadow-[var(--shadow-luxe)]"
+            />
+          </div>
+        </ImageReveal>
 
         <div className="max-w-lg">
-          <p className="eyebrow">The Unboxing</p>
-          <h2 className="mt-6 text-4xl text-foreground sm:text-6xl">
-            Luxury in every <em className="gold-text not-italic">detail</em>.
-          </h2>
-          <p className="mt-6 text-base font-light leading-relaxed text-muted-foreground">
+          <p className="eyebrow scroll-reveal">The Unboxing</p>
+          <SplitText
+            as="h2"
+            text="Luxury in every detail."
+            className="mt-6 text-4xl text-foreground sm:text-6xl"
+            delay={200}
+          />
+          <p className="scroll-reveal mt-6 text-base font-light leading-relaxed text-muted-foreground">
             Every VELARO order arrives in our signature premium packaging,
             designed to create a luxury unboxing experience worthy of the
             piece inside.
@@ -367,7 +455,11 @@ function Packaging() {
 
           <ul className="mt-10 space-y-5">
             {items.map((i, idx) => (
-              <li key={i} className="flex items-center gap-5 border-b border-border/60 pb-5">
+              <li
+                key={i}
+                className="scroll-reveal flex items-center gap-5 border-b border-border/60 pb-5"
+                style={{ transitionDelay: `${idx * 100}ms` }}
+              >
                 <span className="font-display text-xl text-gold">
                   {String(idx + 1).padStart(2, "0")}
                 </span>
@@ -384,12 +476,16 @@ function Packaging() {
 /* ---------- BRAND STORY ---------- */
 function Story() {
   return (
-    <section id="story" className="relative bg-background py-32 sm:py-48">
-      <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
+    <section id="story" className="relative bg-background py-32 sm:py-48 velaro-section-transition">
+      <div className="mx-auto max-w-3xl px-6 text-center sm:px-10 scroll-reveal">
         <p className="eyebrow">The Vision Behind Velaro</p>
-        <h2 className="mt-8 text-4xl text-foreground sm:text-6xl">
-          Confidence begins with how you <em className="gold-text not-italic">present yourself</em>.
-        </h2>
+        <SplitText
+          as="h2"
+          text="Confidence begins with how you present yourself."
+          className="mt-8 text-4xl text-foreground sm:text-6xl"
+          delay={150}
+          staggerDelay={90}
+        />
         <div className="gold-rule mx-auto mt-10 w-24" />
         <div className="mt-10 space-y-6 text-base font-light leading-loose text-muted-foreground sm:text-lg">
           <p>VELARO was founded with a simple vision.</p>
@@ -421,12 +517,15 @@ const testimonials = [
 function Testimonials() {
   const loop = [...testimonials, ...testimonials];
   return (
-    <section className="overflow-hidden border-y border-border bg-card py-28 sm:py-32">
+    <section className="overflow-hidden border-y border-border bg-card py-28 sm:py-32 velaro-section-transition">
       <div className="mx-auto mb-16 max-w-7xl px-6 text-center sm:px-10">
-        <p className="eyebrow">Worn worldwide</p>
-        <h2 className="mt-6 text-4xl text-foreground sm:text-5xl">
-          The Velaro <span className="gold-text italic">verdict</span>.
-        </h2>
+        <p className="eyebrow scroll-reveal">Worn worldwide</p>
+        <SplitText
+          as="h2"
+          text="The Velaro verdict."
+          className="mt-6 text-4xl text-foreground sm:text-5xl"
+          delay={100}
+        />
       </div>
 
       <div className="relative">
@@ -436,11 +535,11 @@ function Testimonials() {
           {loop.map((t, i) => (
             <figure
               key={i}
-              className="w-[340px] shrink-0 border border-border bg-background p-8"
+              className="w-[340px] shrink-0 border border-border bg-background p-8 transition-transform duration-300 hover:scale-[1.02]"
             >
               <div className="text-gold tracking-[0.4em] text-sm">★★★★★</div>
               <blockquote className="mt-6 font-display text-xl font-light italic leading-relaxed text-foreground">
-                "{t.q}"
+                &ldquo;{t.q}&rdquo;
               </blockquote>
               <figcaption className="mt-6 text-xs uppercase tracking-[0.32em] text-muted-foreground">
                 {t.n} · Verified Owner
@@ -458,39 +557,45 @@ const igs = [ig1, ig2, ig3, ig4, ig5, ig6];
 
 function Instagram() {
   return (
-    <section id="journal" className="bg-background py-28 sm:py-32">
+    <section id="journal" className="bg-background py-28 sm:py-32 velaro-section-transition">
       <div className="mx-auto mb-14 max-w-7xl px-6 text-center sm:px-10">
-        <p className="eyebrow">@velaro.eyewear</p>
-        <h2 className="mt-6 text-4xl text-foreground sm:text-5xl">
-          Join the Velaro <span className="gold-text italic">lifestyle</span>.
-        </h2>
+        <p className="eyebrow scroll-reveal">@velaro.eyewear</p>
+        <SplitText
+          as="h2"
+          text="Join the Velaro lifestyle."
+          className="mt-6 text-4xl text-foreground sm:text-5xl"
+          delay={100}
+        />
       </div>
 
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-1 px-1 sm:grid-cols-3 lg:grid-cols-6">
         {igs.map((src, i) => (
-          <a
-            key={i}
-            href="#"
-            className="group relative block aspect-square overflow-hidden"
-          >
-            <img
-              src={src}
-              alt={`VELARO Instagram lifestyle ${i + 1}`}
-              width={768}
-              height={768}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/40" />
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <span className="text-xs uppercase tracking-[0.32em] text-gold">View</span>
-            </div>
-          </a>
+          <ImageReveal key={i} direction="bottom" delay={i * 100} duration={800}>
+            <a
+              href="#"
+              className="group relative block aspect-square overflow-hidden"
+            >
+              <img
+                src={src}
+                alt={`VELARO Instagram lifestyle ${i + 1}`}
+                width={768}
+                height={768}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/40" />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <span className="text-xs uppercase tracking-[0.32em] text-gold">View</span>
+              </div>
+            </a>
+          </ImageReveal>
         ))}
       </div>
 
-      <div className="mt-12 text-center">
-        <a href="#" className="btn-ghost-gold">Follow Us</a>
+      <div className="mt-12 text-center scroll-reveal">
+        <MagneticButton>
+          <a href="#" className="btn-ghost-gold">Follow Us</a>
+        </MagneticButton>
       </div>
     </section>
   );
@@ -499,16 +604,19 @@ function Instagram() {
 /* ---------- NEWSLETTER ---------- */
 function Newsletter() {
   return (
-    <section className="relative isolate overflow-hidden border-t border-border bg-background py-28 sm:py-36">
+    <section className="relative isolate overflow-hidden border-t border-border bg-background py-28 sm:py-36 velaro-section-transition">
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-50"
         style={{ background: "var(--gradient-radial-gold)" }}
       />
-      <div className="mx-auto max-w-2xl px-6 text-center sm:px-10">
+      <div className="mx-auto max-w-2xl px-6 text-center sm:px-10 scroll-reveal">
         <p className="eyebrow">The Inner Circle</p>
-        <h2 className="mt-6 text-4xl text-foreground sm:text-6xl">
-          Become part of the <em className="gold-text not-italic">inner circle</em>.
-        </h2>
+        <SplitText
+          as="h2"
+          text="Become part of the inner circle."
+          className="mt-6 text-4xl text-foreground sm:text-6xl"
+          delay={100}
+        />
         <p className="mt-6 text-base font-light leading-relaxed text-muted-foreground">
           Get early access to new releases, private drops and exclusive
           offers reserved for members.
@@ -524,7 +632,9 @@ function Newsletter() {
             placeholder="your@email.com"
             className="border border-border bg-transparent px-6 py-4 text-sm tracking-wider text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none"
           />
-          <button type="submit" className="btn-gold">Subscribe</button>
+          <MagneticButton>
+            <button type="submit" className="btn-gold">Subscribe</button>
+          </MagneticButton>
         </form>
         <p className="mt-4 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
           No spam · Unsubscribe anytime
@@ -546,7 +656,7 @@ function Footer() {
     <footer id="contact" className="border-t border-border bg-background pt-24 pb-10">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.5fr_3fr]">
-          <div>
+          <div className="scroll-reveal">
             <img src={logoVAsset.url} alt="VELARO" className="h-12 w-auto brightness-110" />
             <p className="mt-6 max-w-sm text-sm font-light leading-relaxed text-muted-foreground">
               Premium polarized eyewear, hand-finished and built for the
@@ -556,8 +666,8 @@ function Footer() {
           </div>
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
-            {cols.map((c) => (
-              <div key={c.h}>
+            {cols.map((c, idx) => (
+              <div key={c.h} className="scroll-reveal" style={{ transitionDelay: `${idx * 100}ms` }}>
                 <h4 className="font-sans text-[11px] font-medium uppercase tracking-[0.32em] text-gold">{c.h}</h4>
                 <ul className="mt-6 space-y-3">
                   {c.l.map((i) => (
@@ -574,7 +684,7 @@ function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-[10px] uppercase tracking-[0.32em] text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Velaro Atelier. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Velaro Atelier. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-gold">Privacy Policy</a>
             <a href="#" className="hover:text-gold">Terms</a>
@@ -603,22 +713,82 @@ function ShieldIcon() { return <IconWrap><svg width="20" height="20" viewBox="0 
 
 /* ---------- PAGE ---------- */
 function VelaroHome() {
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  // IntersectionObserver for all .scroll-reveal elements
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      ".scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale"
+    );
+
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  // IntersectionObserver for section transitions
+  useEffect(() => {
+    const sections = document.querySelectorAll(".velaro-section-transition");
+
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          }
+        });
+      },
+      {
+        threshold: 0.05,
+        rootMargin: "0px 0px -30px 0px",
+      }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="bg-background text-foreground">
-      <Nav />
-      <main>
-        <Hero />
-        <Lifestyle />
-        <WhyVelaro />
-        <LimitedEdition />
-        <Collection />
-        <Packaging />
-        <Story />
-        <Testimonials />
-        <Instagram />
-        <Newsletter />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <LoadingScreen duration={2200} />
+      <CustomCursor />
+      <ScrollProgress />
+      <div ref={mainRef} className="bg-background text-foreground velaro-snap-container">
+        <Nav />
+        <main>
+          <Hero />
+          <Lifestyle />
+          <WhyVelaro />
+          <LimitedEdition />
+          <Collection />
+          <Packaging />
+          <Story />
+          <Testimonials />
+          <Instagram />
+          <Newsletter />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
