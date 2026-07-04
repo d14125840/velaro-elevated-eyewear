@@ -210,3 +210,617 @@
     background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   VELARO WORLD-CLASS EXPERIENCE — Advanced Animations & Effects
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. GRADIENT MESH ANIMATED BACKGROUND ───────────────────── */
+@keyframes velaro-gradient-mesh {
+  0% {
+    background-position: 0% 50%, 100% 50%, 50% 100%;
+  }
+  25% {
+    background-position: 50% 0%, 0% 100%, 100% 0%;
+  }
+  50% {
+    background-position: 100% 50%, 50% 0%, 0% 50%;
+  }
+  75% {
+    background-position: 50% 100%, 100% 0%, 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%, 100% 50%, 50% 100%;
+  }
+}
+
+.velaro-gradient-mesh {
+  background:
+    radial-gradient(ellipse at var(--mesh-x1, 20%) var(--mesh-y1, 30%), oklch(0.78 0.12 80 / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at var(--mesh-x2, 80%) var(--mesh-y2, 20%), oklch(0.7 0.1 70 / 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at var(--mesh-x3, 50%) var(--mesh-y3, 80%), oklch(0.86 0.08 85 / 0.08) 0%, transparent 50%);
+  background-size: 200% 200%, 200% 200%, 200% 200%;
+  animation: velaro-gradient-mesh 20s ease-in-out infinite;
+}
+
+/* ─── 2. ENHANCED GLASSMORPHISM NAV ──────────────────────────── */
+.velaro-glass-nav {
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  background: oklch(0.05 0 0 / 0.6);
+  border-bottom: 1px solid oklch(0.78 0.12 80 / 0.15);
+  position: relative;
+}
+
+.velaro-glass-nav::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, oklch(0.78 0.12 80 / 0.4), transparent);
+  opacity: 0.7;
+}
+
+/* ─── 3. SPOTLIGHT CARD EFFECT ───────────────────────────────── */
+@utility spotlight-card {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      oklch(0.78 0.12 80 / 0.08),
+      transparent 40%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ─── 4. SHIMMER BORDER HOVER EFFECT ─────────────────────────── */
+@keyframes velaro-shimmer-border {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@utility shimmer-border {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(
+      90deg,
+      transparent 20%,
+      oklch(0.78 0.12 80 / 0.6) 50%,
+      transparent 80%
+    );
+    opacity: 0;
+    transform: translateX(-100%) rotate(45deg);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  &:hover::after {
+    opacity: 1;
+    animation: velaro-shimmer-border 1.2s ease-in-out;
+  }
+}
+
+/* ─── 5. SCROLL REVEAL BASE + REVEALED STATE ─────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 6. SCROLL REVEAL VARIANTS ──────────────────────────────── */
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── 7. 3D TILT PERSPECTIVE STYLES ──────────────────────────── */
+.velaro-tilt-container {
+  perspective: 1000px;
+}
+
+.velaro-tilt-card {
+  transform: rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.velaro-tilt-card .tilt-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    oklch(1 0 0 / 0.03) 45%,
+    oklch(1 0 0 / 0.06) 50%,
+    transparent 55%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.velaro-tilt-card:hover .tilt-shine {
+  opacity: 1;
+}
+
+/* ─── 8. CLIP-PATH IMAGE REVEAL KEYFRAMES ────────────────────── */
+@keyframes velaro-clip-reveal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes velaro-clip-reveal-vertical {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes velaro-clip-reveal-diagonal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 0, 0 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+.velaro-clip-reveal {
+  animation: velaro-clip-reveal 1.2s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+.velaro-clip-reveal-vertical {
+  animation: velaro-clip-reveal-vertical 1.2s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+/* ─── 9. GOLD PARTICLE FLOAT KEYFRAMES ───────────────────────── */
+@keyframes velaro-particle-float-1 {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-120px) translateX(20px) scale(0.6);
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0;
+  }
+}
+
+@keyframes velaro-particle-float-2 {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-80px) translateX(-30px) scale(0.8);
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0;
+  }
+}
+
+@keyframes velaro-particle-float-3 {
+  0%, 100% {
+    transform: translateY(0) translateX(0) scale(0.5);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-160px) translateX(10px) scale(0.3);
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0;
+  }
+}
+
+@keyframes velaro-particle-float-4 {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-100px) translateX(-15px) rotate(180deg);
+    opacity: 0.35;
+  }
+  90% {
+    opacity: 0;
+  }
+}
+
+.velaro-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: oklch(0.78 0.12 80);
+  pointer-events: none;
+}
+
+.velaro-particle-1 { animation: velaro-particle-float-1 4s ease-in-out infinite; }
+.velaro-particle-2 { animation: velaro-particle-float-2 5s ease-in-out infinite 0.5s; }
+.velaro-particle-3 { animation: velaro-particle-float-3 6s ease-in-out infinite 1s; }
+.velaro-particle-4 { animation: velaro-particle-float-4 4.5s ease-in-out infinite 1.5s; }
+
+/* ─── 10. CUSTOM CURSOR STYLES ───────────────────────────────── */
+.velaro-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid oklch(0.78 0.12 80 / 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              height 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.3s ease,
+              opacity 0.3s ease,
+              background-color 0.3s ease;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.velaro-cursor.cursor-hover {
+  width: 60px;
+  height: 60px;
+  border-color: oklch(0.78 0.12 80 / 0.8);
+  background-color: oklch(0.78 0.12 80 / 0.05);
+}
+
+.velaro-cursor.cursor-click {
+  width: 30px;
+  height: 30px;
+  border-color: oklch(0.78 0.12 80);
+}
+
+.velaro-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: oklch(0.78 0.12 80);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: width 0.15s ease, height 0.15s ease, opacity 0.15s ease;
+  will-change: transform;
+}
+
+.velaro-cursor-dot.cursor-hover {
+  width: 4px;
+  height: 4px;
+  opacity: 0.6;
+}
+
+/* Hide custom cursor on touch devices */
+@media (pointer: coarse) {
+  .velaro-cursor,
+  .velaro-cursor-dot {
+    display: none !important;
+  }
+}
+
+/* ─── 11. SCROLL PROGRESS BAR ────────────────────────────────── */
+.velaro-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, oklch(0.78 0.12 80), oklch(0.86 0.08 85));
+  z-index: 10001;
+  transform-origin: left;
+  transform: scaleX(var(--scroll-progress, 0));
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ─── 12. LOADING SCREEN ANIMATIONS ──────────────────────────── */
+@keyframes velaro-logo-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes velaro-shimmer-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes velaro-loading-fadeout {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.velaro-loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: oklch(0.05 0 0);
+}
+
+.velaro-loading-screen.loaded {
+  animation: velaro-loading-fadeout 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.velaro-loading-logo {
+  animation: velaro-logo-pulse 2s ease-in-out infinite;
+}
+
+.velaro-loading-bar {
+  position: relative;
+  width: 120px;
+  height: 1px;
+  background: oklch(1 0 0 / 0.1);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.velaro-loading-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, oklch(0.78 0.12 80), transparent);
+  animation: velaro-shimmer-sweep 1.5s ease-in-out infinite;
+}
+
+/* ─── 13. MAGNETIC BUTTON TRANSFORM TRANSITIONS ──────────────── */
+.velaro-magnetic-btn {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.velaro-magnetic-btn:hover {
+  /* Transform values are set dynamically via JS --magnetic-x / --magnetic-y */
+  transform: translate(var(--magnetic-x, 0px), var(--magnetic-y, 0px));
+}
+
+/* ─── 14. SECTION SCROLL SNAP ────────────────────────────────── */
+.velaro-snap-container {
+  scroll-snap-type: y proximity;
+}
+
+.velaro-snap-section {
+  scroll-snap-align: start;
+}
+
+/* ─── 15. PARALLAX LAYER UTILITIES ───────────────────────────── */
+.velaro-parallax-slow {
+  transform: translateY(var(--parallax-y, 0px));
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+.velaro-parallax-medium {
+  transform: translateY(calc(var(--parallax-y, 0px) * 0.5));
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+.velaro-parallax-fast {
+  transform: translateY(calc(var(--parallax-y, 0px) * 0.25));
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ─── 16. TEXT REVEAL ANIMATION ──────────────────────────────── */
+@keyframes velaro-text-reveal {
+  0% {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  100% {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+}
+
+@utility text-reveal {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  animation: velaro-text-reveal 0.8s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+}
+
+/* ─── 17. COUNTER UP NUMBER STYLES ───────────────────────────── */
+.velaro-counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* ─── 18. ENHANCED SECTION TRANSITIONS ───────────────────────── */
+.velaro-section-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.velaro-section-transition.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 19. SPLIT TEXT WORD ANIMATION ──────────────────────────── */
+@keyframes velaro-word-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.velaro-split-word {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.velaro-split-word > span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: velaro-word-reveal 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* ─── 20. REDUCED MOTION — Accessibility ─────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-reveal-scale,
+  .velaro-section-transition {
+    opacity: 1;
+    transform: none;
+  }
+
+  .velaro-cursor,
+  .velaro-cursor-dot {
+    display: none !important;
+  }
+
+  .velaro-gradient-mesh {
+    animation: none;
+  }
+
+  .velaro-loading-screen {
+    display: none;
+  }
+
+  .velaro-parallax-slow,
+  .velaro-parallax-medium,
+  .velaro-parallax-fast {
+    transform: none;
+  }
+
+  .velaro-tilt-card {
+    transform: none;
+  }
+}
