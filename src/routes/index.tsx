@@ -792,3 +792,5 @@ function VelaroHome() {
     </>
   );
 }
+
+export { VelaroHome };
