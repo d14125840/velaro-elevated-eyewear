@@ -13,7 +13,6 @@ import ig4 from "@/assets/velaro-ig-4.jpg";
 import ig5 from "@/assets/velaro-ig-5.jpg";
 import ig6 from "@/assets/velaro-ig-6.jpg";
 
-import { LoadingScreen } from "@/components/LoadingScreen";
 import { CustomCursor } from "@/components/CustomCursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { SplitText } from "@/components/SplitText";
@@ -757,7 +756,6 @@ function VelaroHome() {
 
   return (
     <>
-      <LoadingScreen duration={2200} />
       <CustomCursor />
       <ScrollProgress />
       <div ref={mainRef} className="bg-background text-foreground velaro-snap-container">
