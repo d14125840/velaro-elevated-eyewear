@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, useCallback, type ReactNode } from "react";
-import heroImg from "@/assets/velaro-hero.jpg";
+import heroImg from "@/assets/velaro_gafas_sola_para_subir.png";
 import lifestyleImg from "@/assets/velaro-lifestyle.jpg";
-import noirImg from "@/assets/velaro-noir.jpg";
-import titanImg from "@/assets/velaro-titan.jpg";
-import goldImg from "@/assets/velaro-gold.jpg";
+import prodC1 from "@/assets/velaro_fondo_color_c1_negro_gris.png";
+import prodC2 from "@/assets/velaro_fondo_color_c2_negro_marron.png";
+import prodC3 from "@/assets/velaro_fondo_color_c3_azul_verde_gris.png";
+import prodC4 from "@/assets/velaro_fondo_color_c4_gris_verde.png";
+import prodC5 from "@/assets/velaro_fondo_color_c5_marron_cristal_azul.png";
 const packagingAsset = { url: "https://e185bc3a-d544-4dfb-96b8-37ea4ce3ee0e.lovableproject.com/__l5e/assets-v1/505751cf-236d-4660-a9cb-332cd54e56e9/velaro-packaging-new.png" };
 const specsheetAsset = { url: "https://e185bc3a-d544-4dfb-96b8-37ea4ce3ee0e.lovableproject.com/__l5e/assets-v1/12ff59ad-1178-4bec-9a81-cdf263be3952/velaro-specsheet.png" };
 import ig1 from "@/assets/velaro-ig-1.jpg";
@@ -13,8 +15,11 @@ import ig4 from "@/assets/velaro-ig-4.jpg";
 import ig5 from "@/assets/velaro-ig-5.jpg";
 import ig6 from "@/assets/velaro-ig-6.jpg";
 
+/* ---------- CART TYPES ---------- */
+type CartItem = { name: string; price: number; img: string; quantity: number };
+
 /* ---------- NAV ---------- */
-function Nav() {
+function Nav({ cartItemCount, onCartClick }: { cartItemCount: number; onCartClick: () => void }) {
   return (
     <header className="velaro-glass-nav fixed top-0 z-50 w-full">
       <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 py-5 sm:px-10">
@@ -29,10 +34,10 @@ function Nav() {
         <nav className="hidden items-center justify-end gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
           <a href="#journal" className="hover:text-gold transition-colors">Journal</a>
           <a href="#contact" className="hover:text-gold transition-colors">Contact</a>
-          <a href="#cart" className="text-gold">Bag (0)</a>
+          <button onClick={onCartClick} className="text-gold cursor-pointer bg-transparent border-none font-sans text-xs uppercase tracking-[0.28em]">Bag ({cartItemCount})</button>
         </nav>
         <div className="justify-self-end md:hidden">
-          <span className="text-xs uppercase tracking-[0.28em] text-gold">Menu</span>
+          <button onClick={onCartClick} className="text-xs uppercase tracking-[0.28em] text-gold bg-transparent border-none cursor-pointer font-sans">Bag ({cartItemCount})</button>
         </div>
       </div>
       <div className="gold-rule opacity-40" />
@@ -359,12 +364,14 @@ function LimitedEdition() {
 
 /* ---------- COLLECTION ---------- */
 const products = [
-  { name: "Velaro Noir", frame: "Black frame", lens: "Dark polarized lenses", price: "€79.99", img: noirImg },
-  { name: "Velaro Titan", frame: "Silver frame", lens: "Grey polarized lenses", price: "€79.99", img: titanImg },
-  { name: "Velaro Gold", frame: "Gold frame", lens: "Brown polarized lenses", price: "€79.99", img: goldImg },
+  { name: "VELARO Eclipse", frame: "Negro/Gris", lens: "Grey Polarized", price: 79.99, img: prodC1 },
+  { name: "VELARO Onyx", frame: "Negro/Marron", lens: "Brown Polarized", price: 79.99, img: prodC2 },
+  { name: "VELARO Aether", frame: "Azul-Verde", lens: "Grey-Green Polarized", price: 89.99, img: prodC3 },
+  { name: "VELARO Phantom", frame: "Gris/Verde", lens: "Green Polarized", price: 79.99, img: prodC4 },
+  { name: "VELARO Solstice", frame: "Tortoise/Crystal", lens: "Blue Polarized", price: 89.99, img: prodC5 },
 ];
 
-function Collection() {
+function Collection({ onAddToCart }: { onAddToCart: (product: { name: string; price: number; img: string }) => void }) {
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -388,17 +395,17 @@ function Collection() {
           <div>
             <p className="eyebrow scroll-reveal">The Aura Collection</p>
             <h2 className="scroll-reveal mt-6 text-5xl text-foreground sm:text-7xl">
-              Three frames. One signature.
+              Five frames. One signature.
             </h2>
           </div>
           <a href="#" className="scroll-reveal text-xs uppercase tracking-[0.32em] text-gold hover:underline">View all &rarr;</a>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 gap-12 md:grid-cols-3">
+        <div className="mt-20 flex flex-wrap justify-center gap-12">
           {products.map((p) => (
             <article
               key={p.name}
-              className="scroll-reveal product-card-3d group relative"
+              className="scroll-reveal product-card-3d group relative w-full md:w-[calc(33.333%-2rem)] sm:w-[calc(50%-1.5rem)]"
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
             >
@@ -417,7 +424,12 @@ function Collection() {
                 />
                 <div className="absolute inset-x-0 bottom-0 translate-y-full bg-black/80 p-4 backdrop-blur-md transition-transform duration-500 group-hover:translate-y-0">
                   <div className="flex gap-3">
-                    <button className="btn-gold flex-1 !py-3 !px-4 !text-[10px]">Add to Cart</button>
+                    <button
+                      className="btn-gold flex-1 !py-3 !px-4 !text-[10px]"
+                      onClick={() => onAddToCart({ name: p.name, price: p.price, img: p.img })}
+                    >
+                      Add to Cart
+                    </button>
                     <button className="btn-ghost-gold !py-3 !px-4 !text-[10px]">Quick View</button>
                   </div>
                 </div>
@@ -431,7 +443,7 @@ function Collection() {
                   </p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <div className="text-lg font-light text-gold">{p.price}</div>
+                  <div className="text-lg font-light text-gold">&euro;{p.price.toFixed(2)}</div>
                 </div>
               </div>
             </article>
@@ -704,6 +716,82 @@ function Footer() {
   );
 }
 
+/* ---------- CART DRAWER ---------- */
+function CartDrawer({
+  cart,
+  cartOpen,
+  onClose,
+  onRemove,
+}: {
+  cart: CartItem[];
+  cartOpen: boolean;
+  onClose: () => void;
+  onRemove: (name: string) => void;
+}) {
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  return (
+    <>
+      {/* Overlay */}
+      <div
+        className={`cart-overlay ${cartOpen ? "cart-overlay-visible" : ""}`}
+        onClick={onClose}
+      />
+      {/* Drawer */}
+      <aside className={`cart-drawer ${cartOpen ? "cart-drawer-open" : ""}`}>
+        <div className="flex items-center justify-between border-b border-border px-6 py-5">
+          <h2 className="font-display text-2xl text-foreground">Your Bag</h2>
+          <button
+            onClick={onClose}
+            className="text-muted-foreground hover:text-foreground transition-colors bg-transparent border-none cursor-pointer text-2xl leading-none"
+          >
+            &times;
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-6 py-6">
+          {cart.length === 0 ? (
+            <p className="text-sm text-muted-foreground text-center mt-12">Your bag is empty.</p>
+          ) : (
+            <ul className="space-y-6">
+              {cart.map((item) => (
+                <li key={item.name} className="cart-item flex gap-4">
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="h-20 w-20 object-cover bg-card shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-medium text-foreground truncate">{item.name}</h4>
+                    <p className="text-xs text-muted-foreground mt-1">Qty: {item.quantity}</p>
+                    <p className="text-sm text-gold mt-1">&euro;{(item.price * item.quantity).toFixed(2)}</p>
+                  </div>
+                  <button
+                    onClick={() => onRemove(item.name)}
+                    className="text-xs uppercase tracking-wider text-muted-foreground hover:text-destructive transition-colors bg-transparent border-none cursor-pointer self-start pt-1"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        {cart.length > 0 && (
+          <div className="border-t border-border px-6 py-6">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-xs uppercase tracking-[0.28em] text-muted-foreground">Total</span>
+              <span className="text-xl font-light text-gold">&euro;{total.toFixed(2)}</span>
+            </div>
+            <button className="btn-gold w-full">Checkout</button>
+          </div>
+        )}
+      </aside>
+    </>
+  );
+}
+
 /* ---------- SCROLL PROGRESS BAR ---------- */
 function ScrollProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -730,6 +818,41 @@ function ScrollProgressBar() {
 /* ---------- PAGE ---------- */
 export default function VelaroHome() {
   const mainRef = useRef<HTMLDivElement>(null);
+
+  // Cart state
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    try {
+      const stored = localStorage.getItem("velaro-cart");
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [cartOpen, setCartOpen] = useState(false);
+
+  // Persist cart to localStorage
+  useEffect(() => {
+    localStorage.setItem("velaro-cart", JSON.stringify(cart));
+  }, [cart]);
+
+  const addToCart = useCallback((product: { name: string; price: number; img: string }) => {
+    setCart((prev) => {
+      const existing = prev.find((item) => item.name === product.name);
+      if (existing) {
+        return prev.map((item) =>
+          item.name === product.name ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      }
+      return [...prev, { name: product.name, price: product.price, img: product.img, quantity: 1 }];
+    });
+    setCartOpen(true);
+  }, []);
+
+  const removeFromCart = useCallback((name: string) => {
+    setCart((prev) => prev.filter((item) => item.name !== name));
+  }, []);
+
+  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   // IntersectionObserver for all .scroll-reveal elements
   useEffect(() => {
@@ -785,13 +908,14 @@ export default function VelaroHome() {
   return (
     <div ref={mainRef} className="bg-background text-foreground">
       <ScrollProgressBar />
-      <Nav />
+      <Nav cartItemCount={cartItemCount} onCartClick={() => setCartOpen(true)} />
+      <CartDrawer cart={cart} cartOpen={cartOpen} onClose={() => setCartOpen(false)} onRemove={removeFromCart} />
       <main>
         <Hero />
         <Lifestyle />
         <WhyVelaro />
         <LimitedEdition />
-        <Collection />
+        <Collection onAddToCart={addToCart} />
         <Packaging />
         <Story />
         <Testimonials />

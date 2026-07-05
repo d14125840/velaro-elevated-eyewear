@@ -425,6 +425,63 @@
   animation: velaro-shimmer-border 2s linear infinite;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   CART DRAWER STYLES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Cart overlay */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: oklch(0 0 0 / 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cart-overlay-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Cart drawer panel */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  height: 100dvh;
+  background: oklch(0.06 0 0 / 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid oklch(0.78 0.12 80 / 0.15);
+  box-shadow: -20px 0 60px oklch(0 0 0 / 0.5);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cart-drawer-open {
+  transform: translateX(0);
+}
+
+/* Cart item styling */
+.cart-item {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid oklch(1 0 0 / 0.06);
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
