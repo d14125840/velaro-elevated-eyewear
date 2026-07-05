@@ -128,6 +128,21 @@
   border: 1px solid var(--color-gold);
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, oklch(1 0 0 / 0.3) 0%, transparent 70%);
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+  }
+  &:hover::after {
+    transform: scale(2.5);
+    opacity: 1;
+  }
   &:hover {
     background: transparent;
     color: var(--color-gold);
@@ -172,6 +187,10 @@
   &:hover { transform: translateY(-6px); }
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════════════════ */
+
 @keyframes velaro-reveal {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -195,7 +214,82 @@
   50% { transform: translateY(-12px); }
 }
 
-.velaro-marquee { animation: velaro-marquee 40s linear infinite; }
+/* Animated gradient mesh for hero background */
+@keyframes velaro-gradient-mesh {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 25%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 0% 75%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Pulsing scroll indicator */
+@keyframes velaro-scroll-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scaleY(0.6);
+  }
+}
+
+/* Clip-path reveal from left to right */
+@keyframes velaro-clip-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Shimmer/glow effect on card borders */
+@keyframes velaro-shimmer-border {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Split word reveal */
+@keyframes velaro-split-word {
+  from {
+    opacity: 0;
+    transform: translateY(40px) rotateX(-15deg);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Counter pulse */
+@keyframes velaro-counter-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ANIMATION CLASSES
+   ═══════════════════════════════════════════════════════════════ */
+
+.velaro-marquee { animation: velaro-marquee 50s linear infinite; }
 .velaro-glow { animation: velaro-glow 6s ease-in-out infinite; }
 .velaro-float { animation: velaro-float 7s ease-in-out infinite; }
 
@@ -212,7 +306,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   Pages-specific styles (simplified for build reliability)
+   Pages-specific styles (enhanced premium experience)
    ═══════════════════════════════════════════════════════════════ */
 
 /* Glass navigation */
@@ -221,6 +315,39 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid oklch(0.78 0.12 80 / 0.15);
+}
+
+/* Scroll progress bar */
+.velaro-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gradient-gold);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px oklch(0.78 0.12 80 / 0.6);
+}
+
+/* Hero gradient mesh background */
+.velaro-hero-mesh {
+  position: absolute;
+  inset: 0;
+  z-index: -20;
+  opacity: 0.3;
+  background:
+    radial-gradient(ellipse at 20% 50%, oklch(0.78 0.12 80 / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, oklch(0.78 0.12 80 / 0.1) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 80%, oklch(0.78 0.12 80 / 0.08) 0%, transparent 45%);
+  background-size: 200% 200%;
+  animation: velaro-gradient-mesh 12s ease-in-out infinite;
+}
+
+/* Split text animation for hero title */
+.velaro-split-word {
+  display: inline-block;
+  opacity: 0;
+  animation: velaro-split-word 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 /* Scroll reveal animations */
@@ -233,6 +360,69 @@
 .scroll-reveal.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Scroll pulse indicator */
+.velaro-scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.velaro-scroll-indicator span {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: var(--muted-foreground);
+}
+
+.velaro-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  transform-origin: top;
+  animation: velaro-scroll-pulse 2s ease-in-out infinite;
+}
+
+/* Product card 3D perspective effect */
+.product-card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+}
+
+/* Clip-path reveal for product images */
+.velaro-clip-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.velaro-clip-reveal.revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Shimmer border effect on product cards on hover */
+.product-card-3d::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(0.78 0.12 80 / 0) 25%,
+    oklch(0.78 0.12 80 / 0.6) 50%,
+    oklch(0.78 0.12 80 / 0) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.product-card-3d:hover::before {
+  opacity: 1;
+  animation: velaro-shimmer-border 2s linear infinite;
 }
 
 /* Reduced motion accessibility */
@@ -249,5 +439,20 @@
   .scroll-reveal {
     opacity: 1;
     transform: none;
+  }
+
+  .velaro-split-word {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  .velaro-clip-reveal {
+    clip-path: inset(0);
+  }
+
+  .velaro-hero-mesh {
+    animation: none;
+    opacity: 0.15;
   }
 }

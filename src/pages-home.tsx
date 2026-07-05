@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, useCallback, type ReactNode } from "react";
 import heroImg from "@/assets/velaro-hero.jpg";
 import lifestyleImg from "@/assets/velaro-lifestyle.jpg";
 import noirImg from "@/assets/velaro-noir.jpg";
@@ -42,8 +42,37 @@ function Nav() {
 
 /* ---------- HERO ---------- */
 function Hero() {
+  const heroImageRef = useRef<HTMLImageElement>(null);
+  const heroWords = "Crafted for those who stand out.".split(" ");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroImageRef.current) {
+        const scrollY = window.scrollY;
+        const translateY = scrollY * 0.15;
+        heroImageRef.current.style.transform = `translateY(${translateY}px)`;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Fallback: force split-word visibility after 3s in case CSS animation fails
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const words = document.querySelectorAll(".velaro-split-word");
+      words.forEach((el) => {
+        (el as HTMLElement).style.opacity = "1";
+      });
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative isolate min-h-screen overflow-hidden bg-background grain">
+      {/* animated gradient mesh */}
+      <div className="velaro-hero-mesh" />
+
       {/* ambient glow */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div
@@ -57,8 +86,16 @@ function Hero() {
           Velaro Signature Collection
         </p>
 
-        <h1 className="mt-8 max-w-5xl text-5xl leading-[1.05] text-foreground sm:text-7xl md:text-[5.5rem] reveal" style={{ animationDelay: "0.3s" }}>
-          Crafted for those who stand out.
+        <h1 className="mt-8 max-w-5xl text-5xl leading-[1.05] text-foreground sm:text-7xl md:text-[5.5rem]">
+          {heroWords.map((word, i) => (
+            <span
+              key={i}
+              className="velaro-split-word"
+              style={{ animationDelay: `${0.3 + i * 0.12}s`, marginRight: "0.3em" }}
+            >
+              {word}
+            </span>
+          ))}
         </h1>
 
         <p
@@ -86,16 +123,18 @@ function Hero() {
             style={{ background: "var(--gradient-radial-gold)" }}
           />
           <img
+            ref={heroImageRef}
             src={heroImg}
             alt="VELARO signature sunglasses with gold detailing"
             width={1600}
             height={1200}
-            className="velaro-float mx-auto w-full select-none object-contain"
+            className="mx-auto w-full select-none object-contain will-change-transform"
           />
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-          Scroll
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 velaro-scroll-indicator">
+          <span>Scroll to explore</span>
+          <div className="velaro-scroll-line" />
         </div>
       </div>
     </section>
@@ -208,6 +247,57 @@ function WhyVelaro() {
 }
 
 /* ---------- LIMITED EDITION ---------- */
+function AnimatedCounter({ target, label }: { target: number; label: string }) {
+  const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const hasAnimatedRef = useRef(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimatedRef.current) {
+          hasAnimatedRef.current = true;
+          setHasAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!hasAnimated) return;
+    const duration = 1500;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  }, [hasAnimated, target]);
+
+  const display = target < 10 ? String(count).padStart(2, "0") : String(count);
+
+  return (
+    <div ref={ref} className="text-center scroll-reveal">
+      <div className="text-3xl font-light text-gold sm:text-5xl">{display}</div>
+      <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">{label}</div>
+    </div>
+  );
+}
+
 function LimitedEdition() {
   return (
     <section className="relative isolate overflow-hidden bg-black py-32 sm:py-48">
@@ -254,18 +344,9 @@ function LimitedEdition() {
         </p>
 
         <div className="mt-10 flex items-center justify-center gap-6">
-          <div className="text-center scroll-reveal">
-            <div className="text-3xl font-light text-gold sm:text-5xl">500</div>
-            <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Pieces</div>
-          </div>
-          <div className="text-center scroll-reveal" style={{ transitionDelay: "100ms" }}>
-            <div className="text-3xl font-light text-gold sm:text-5xl">03</div>
-            <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Frames</div>
-          </div>
-          <div className="text-center scroll-reveal" style={{ transitionDelay: "200ms" }}>
-            <div className="text-3xl font-light text-gold sm:text-5xl">01</div>
-            <div className="mt-2 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">Edition</div>
-          </div>
+          <AnimatedCounter target={500} label="Pieces" />
+          <AnimatedCounter target={3} label="Frames" />
+          <AnimatedCounter target={1} label="Edition" />
         </div>
 
         <div className="scroll-reveal mt-12">
@@ -284,6 +365,22 @@ const products = [
 ];
 
 function Collection() {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -5;
+    const rotateY = ((x - centerX) / centerX) * 5;
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  }, []);
+
+  const handleMouseLeave = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg)";
+  }, []);
+
   return (
     <section id="collection" className="bg-background py-28 sm:py-40">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
@@ -299,7 +396,12 @@ function Collection() {
 
         <div className="mt-20 grid grid-cols-1 gap-12 md:grid-cols-3">
           {products.map((p) => (
-            <article key={p.name} className="scroll-reveal group relative">
+            <article
+              key={p.name}
+              className="scroll-reveal product-card-3d group relative"
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
               <div className="relative overflow-hidden bg-card aspect-square">
                 <div
                   className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
@@ -311,7 +413,7 @@ function Collection() {
                   width={1024}
                   height={1024}
                   loading="lazy"
-                  className="relative h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
+                  className="velaro-clip-reveal relative h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-x-0 bottom-0 translate-y-full bg-black/80 p-4 backdrop-blur-md transition-transform duration-500 group-hover:translate-y-0">
                   <div className="flex gap-3">
@@ -446,8 +548,8 @@ function Testimonials() {
       </div>
 
       <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-32 bg-gradient-to-r from-card to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-32 bg-gradient-to-l from-card to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-48 bg-gradient-to-r from-card to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-48 bg-gradient-to-l from-card to-transparent" />
         <div className="velaro-marquee flex w-max gap-6 px-6">
           {loop.map((t, i) => (
             <figure
@@ -602,6 +704,29 @@ function Footer() {
   );
 }
 
+/* ---------- SCROLL PROGRESS BAR ---------- */
+function ScrollProgressBar() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollHeight = document.body.scrollHeight - window.innerHeight;
+      if (scrollHeight > 0) {
+        setScrollProgress(window.scrollY / scrollHeight);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div
+      className="velaro-progress-bar"
+      style={{ width: `${scrollProgress * 100}%` }}
+    />
+  );
+}
+
 /* ---------- PAGE ---------- */
 export default function VelaroHome() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -632,8 +757,34 @@ export default function VelaroHome() {
     return () => observer.disconnect();
   }, []);
 
+  // IntersectionObserver for .velaro-clip-reveal elements
+  useEffect(() => {
+    const clipElements = document.querySelectorAll(".velaro-clip-reveal");
+    if (clipElements.length === 0) return;
+
+    const clipObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            clipObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -30px 0px",
+      }
+    );
+
+    clipElements.forEach((el) => clipObserver.observe(el));
+
+    return () => clipObserver.disconnect();
+  }, []);
+
   return (
     <div ref={mainRef} className="bg-background text-foreground">
+      <ScrollProgressBar />
       <Nav />
       <main>
         <Hero />
