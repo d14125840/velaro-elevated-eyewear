@@ -6,7 +6,7 @@ import prodC2 from "@/assets/velaro_fondo_color_c2_negro_marron.png";
 import prodC3 from "@/assets/velaro_fondo_color_c3_azul_verde_gris.png";
 import prodC4 from "@/assets/velaro_fondo_color_c4_gris_verde.png";
 import prodC5 from "@/assets/velaro_fondo_color_c5_marron_cristal_azul.png";
-const packagingAsset = { url: "https://e185bc3a-d544-4dfb-96b8-37ea4ce3ee0e.lovableproject.com/__l5e/assets-v1/505751cf-236d-4660-a9cb-332cd54e56e9/velaro-packaging-new.png" };
+import packagingImg from "@/assets/velaro_packaging_todo_en_uno.png";
 const specsheetAsset = { url: "https://e185bc3a-d544-4dfb-96b8-37ea4ce3ee0e.lovableproject.com/__l5e/assets-v1/12ff59ad-1178-4bec-9a81-cdf263be3952/velaro-specsheet.png" };
 import ig1 from "@/assets/velaro-ig-1.jpg";
 import ig2 from "@/assets/velaro-ig-2.jpg";
@@ -471,7 +471,7 @@ function Packaging() {
             style={{ background: "var(--gradient-radial-gold)" }}
           />
           <img
-            src={packagingAsset.url}
+            src={packagingImg}
             alt="VELARO premium magnetic box, leather case and microfiber cloth"
             width={1600}
             height={1100}
