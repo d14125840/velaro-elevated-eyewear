@@ -24,20 +24,20 @@ function Nav({ cartItemCount, onCartClick }: { cartItemCount: number; onCartClic
     <header className="velaro-glass-nav fixed top-0 z-50 w-full">
       <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-6 py-5 sm:px-10">
         <nav className="hidden items-center gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
-          <a href="#collection" className="hover:text-gold transition-colors">Shop</a>
-          <a href="#story" className="hover:text-gold transition-colors">Story</a>
-          <a href="#packaging" className="hover:text-gold transition-colors">Packaging</a>
+          <a href="#collection" className="hover:text-gold transition-colors">Tienda</a>
+          <a href="#story" className="hover:text-gold transition-colors">Historia</a>
+          <a href="#packaging" className="hover:text-gold transition-colors">Embalaje</a>
         </nav>
         <a href="#" className="justify-self-center">
           <span className="font-display text-3xl text-gold tracking-[0.15em]">VELARO</span>
         </a>
         <nav className="hidden items-center justify-end gap-8 text-xs uppercase tracking-[0.28em] text-foreground/80 md:flex">
-          <a href="#journal" className="hover:text-gold transition-colors">Journal</a>
-          <a href="#contact" className="hover:text-gold transition-colors">Contact</a>
-          <button onClick={onCartClick} className="text-gold cursor-pointer bg-transparent border-none font-sans text-xs uppercase tracking-[0.28em]">Bag ({cartItemCount})</button>
+          <a href="#journal" className="hover:text-gold transition-colors">Diario</a>
+          <a href="#contact" className="hover:text-gold transition-colors">Contacto</a>
+          <button onClick={onCartClick} className="text-gold cursor-pointer bg-transparent border-none font-sans text-xs uppercase tracking-[0.28em]">Carrito ({cartItemCount})</button>
         </nav>
         <div className="justify-self-end md:hidden">
-          <button onClick={onCartClick} className="text-xs uppercase tracking-[0.28em] text-gold bg-transparent border-none cursor-pointer font-sans">Bag ({cartItemCount})</button>
+          <button onClick={onCartClick} className="text-xs uppercase tracking-[0.28em] text-gold bg-transparent border-none cursor-pointer font-sans">Carrito ({cartItemCount})</button>
         </div>
       </div>
       <div className="gold-rule opacity-40" />
@@ -48,7 +48,7 @@ function Nav({ cartItemCount, onCartClick }: { cartItemCount: number; onCartClic
 /* ---------- HERO ---------- */
 function Hero() {
   const heroImageRef = useRef<HTMLImageElement>(null);
-  const heroWords = "Crafted for those who stand out.".split(" ");
+  const heroWords = "Diseñado para quienes destacan.".split(" ");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -88,7 +88,7 @@ function Hero() {
 
       <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-6 pt-32 text-center sm:px-10">
         <p className="eyebrow reveal" style={{ animationDelay: "0.1s" }}>
-          Velaro Signature Collection
+          Colección Velaro Signature
         </p>
 
         <h1 className="mt-8 max-w-5xl text-5xl leading-[1.05] text-foreground sm:text-7xl md:text-[5.5rem]">
@@ -107,16 +107,16 @@ function Hero() {
           className="reveal mt-8 max-w-xl text-base font-light leading-relaxed text-muted-foreground sm:text-lg"
           style={{ animationDelay: "0.55s" }}
         >
-          Premium polarized sunglasses designed for confidence, elegance
-          and everyday luxury.
+          Gafas de sol polarizadas premium diseñadas para transmitir confianza, elegancia
+          y lujo cotidiano.
         </p>
 
         <div
           className="reveal mt-12 flex flex-col items-center gap-4 sm:flex-row"
           style={{ animationDelay: "0.75s" }}
         >
-          <a href="#collection" className="btn-gold">Shop Now</a>
-          <a href="#story" className="btn-ghost-gold">Discover Velaro</a>
+          <a href="#collection" className="btn-gold">Comprar Ahora</a>
+          <a href="#story" className="btn-ghost-gold">Descubre Velaro</a>
         </div>
 
         <div
@@ -138,7 +138,7 @@ function Hero() {
         </div>
 
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 velaro-scroll-indicator">
-          <span>Scroll to explore</span>
+          <span>Explorar</span>
           <div className="velaro-scroll-line" />
         </div>
       </div>
@@ -165,18 +165,18 @@ function Lifestyle() {
         <div className="relative z-10 flex h-full items-center absolute inset-0">
           <div className="mx-auto grid w-full max-w-7xl grid-cols-1 px-6 sm:px-10 md:grid-cols-2">
             <div className="max-w-lg">
-              <p className="eyebrow scroll-reveal">The Velaro Atelier</p>
+              <p className="eyebrow scroll-reveal">El Atelier Velaro</p>
               <h2 className="scroll-reveal mt-6 text-4xl text-foreground sm:text-6xl">
-                More than eyewear.
+                Más que gafas.
               </h2>
               <p className="scroll-reveal mt-6 text-base font-light leading-relaxed text-foreground/80">
-                VELARO was created for individuals who appreciate timeless
-                style, confidence and attention to detail. Every pair is
-                designed to elevate your presence -- from the cut of the
-                acetate to the weight in your hand.
+                VELARO fue creado para quienes aprecian un estilo atemporal,
+                confianza y atención al detalle. Cada par está diseñado
+                para elevar tu presencia — desde el corte del acetato
+                hasta el peso en tu mano.
               </p>
               <div className="scroll-reveal mt-10">
-                <a href="#story" className="btn-ghost-gold">Our philosophy</a>
+                <a href="#story" className="btn-ghost-gold">Nuestra filosofía</a>
               </div>
             </div>
           </div>
@@ -188,12 +188,12 @@ function Lifestyle() {
 
 /* ---------- WHY VELARO ---------- */
 const features = [
-  { t: "UV400 Protection", d: "Full-spectrum defense against UVA and UVB radiation.", icon: "sun" },
-  { t: "Polarized Lenses", d: "Cinematic clarity, zero glare. Engineered in Italy.", icon: "lens" },
-  { t: "Premium Materials", d: "Hand-finished acetate and surgical-grade metal alloys.", icon: "gem" },
-  { t: "Lightweight Comfort", d: "Balanced under 28 grams -- built for all-day wear.", icon: "feather" },
-  { t: "Luxury Packaging", d: "Signature magnetic box, leather case and microfiber.", icon: "box" },
-  { t: "30-Day Guarantee", d: "Wear them, live in them, return them. Risk-free.", icon: "shield" },
+  { t: "Protección UV400", d: "Defensa completa contra radiación UVA y UVB.", icon: "sun" },
+  { t: "Lentes Polarizadas", d: "Claridad cinemática, sin reflejos. Diseñadas en Italia.", icon: "lens" },
+  { t: "Materiales Premium", d: "Acetato acabado a mano y aleaciones metálicas de grado quirúrgico.", icon: "gem" },
+  { t: "Comodidad Ultraligera", d: "Equilibradas con menos de 28 gramos — para uso todo el día.", icon: "feather" },
+  { t: "Embalaje de Lujo", d: "Caja magnética exclusiva, funda de piel y microfibra.", icon: "box" },
+  { t: "Garantía 30 Días", d: "Úsalas, vívelas, devuélvelas. Sin riesgo.", icon: "shield" },
 ];
 
 function FeatureIcon({ name }: { name: string }) {
@@ -225,9 +225,9 @@ function WhyVelaro() {
     <section className="relative border-t border-border bg-background py-28 sm:py-40">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow scroll-reveal">Why Velaro</p>
+          <p className="eyebrow scroll-reveal">Por qué Velaro</p>
           <h2 className="scroll-reveal mt-6 text-4xl text-foreground sm:text-5xl">
-            Engineered without compromise.
+            Ingeniería sin compromiso.
           </h2>
           <div className="gold-rule mx-auto mt-8 w-24 scroll-reveal" />
         </div>
@@ -314,14 +314,14 @@ function LimitedEdition() {
       <div className="absolute inset-x-0 bottom-0 gold-rule opacity-50" />
 
       <div className="mx-auto max-w-6xl px-6 text-center sm:px-10">
-        <p className="eyebrow scroll-reveal">First Production Run &middot; 2026</p>
+        <p className="eyebrow scroll-reveal">Primera Producción &middot; 2026</p>
         <h2 className="scroll-reveal mt-8 text-5xl text-foreground sm:text-7xl">
-          Limited First Edition Release
+          Lanzamiento Primera Edición Limitada
         </h2>
         <p className="scroll-reveal mt-8 text-base font-light leading-relaxed text-foreground/80 sm:text-lg">
-          A limited number of pieces are available during the first
-          production run. Each frame is numbered. Each owner becomes part
-          of a small, deliberate circle.
+          Un número limitado de piezas disponibles en la primera
+          producción. Cada montura está numerada. Cada propietario forma
+          parte de un círculo exclusivo.
         </p>
 
         <figure className="scroll-reveal mt-16 group relative">
@@ -345,17 +345,17 @@ function LimitedEdition() {
         </figure>
 
         <p className="scroll-reveal mt-12 text-sm uppercase tracking-[0.32em] text-gold">
-          Own a piece of the beginning.
+          Sé parte del origen.
         </p>
 
         <div className="mt-10 flex items-center justify-center gap-6">
-          <AnimatedCounter target={500} label="Pieces" />
-          <AnimatedCounter target={3} label="Frames" />
-          <AnimatedCounter target={1} label="Edition" />
+          <AnimatedCounter target={500} label="Piezas" />
+          <AnimatedCounter target={3} label="Monturas" />
+          <AnimatedCounter target={1} label="Edición" />
         </div>
 
         <div className="scroll-reveal mt-12">
-          <a href="#collection" className="btn-gold">Reserve Yours</a>
+          <a href="#collection" className="btn-gold">Reserva la Tuya</a>
         </div>
       </div>
     </section>
@@ -393,12 +393,12 @@ function Collection({ onAddToCart }: { onAddToCart: (product: { name: string; pr
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
         <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-end">
           <div>
-            <p className="eyebrow scroll-reveal">The Aura Collection</p>
+            <p className="eyebrow scroll-reveal">La Colección Aura</p>
             <h2 className="scroll-reveal mt-6 text-5xl text-foreground sm:text-7xl">
-              Five frames. One signature.
+              Cinco monturas. Una firma.
             </h2>
           </div>
-          <a href="#" className="scroll-reveal text-xs uppercase tracking-[0.32em] text-gold hover:underline">View all &rarr;</a>
+          <a href="#" className="scroll-reveal text-xs uppercase tracking-[0.32em] text-gold hover:underline">Ver todo &rarr;</a>
         </div>
 
         <div className="mt-20 flex flex-wrap justify-center gap-12">
@@ -428,9 +428,9 @@ function Collection({ onAddToCart }: { onAddToCart: (product: { name: string; pr
                       className="btn-gold flex-1 !py-3 !px-4 !text-[10px]"
                       onClick={() => onAddToCart({ name: p.name, price: p.price, img: p.img })}
                     >
-                      Add to Cart
+                      Añadir al Carrito
                     </button>
-                    <button className="btn-ghost-gold !py-3 !px-4 !text-[10px]">Quick View</button>
+                    <button className="btn-ghost-gold !py-3 !px-4 !text-[10px]">Vista Rápida</button>
                   </div>
                 </div>
               </div>
@@ -457,10 +457,10 @@ function Collection({ onAddToCart }: { onAddToCart: (product: { name: string; pr
 /* ---------- PACKAGING ---------- */
 function Packaging() {
   const items = [
-    "Premium black magnetic box",
-    "Protective leather carrying case",
-    "Microfiber cleaning cloth",
-    "Numbered warranty card",
+    "Caja magnética negra premium",
+    "Funda protectora de piel",
+    "Paño de microfibra",
+    "Tarjeta de garantía numerada",
   ];
   return (
     <section id="packaging" className="relative border-y border-border bg-background py-28 sm:py-40">
@@ -481,14 +481,14 @@ function Packaging() {
         </div>
 
         <div className="max-w-lg">
-          <p className="eyebrow scroll-reveal">The Unboxing</p>
+          <p className="eyebrow scroll-reveal">La Experiencia de Apertura</p>
           <h2 className="scroll-reveal mt-6 text-4xl text-foreground sm:text-6xl">
-            Luxury in every detail.
+            Lujo en cada detalle.
           </h2>
           <p className="scroll-reveal mt-6 text-base font-light leading-relaxed text-muted-foreground">
-            Every VELARO order arrives in our signature premium packaging,
-            designed to create a luxury unboxing experience worthy of the
-            piece inside.
+            Cada pedido de VELARO llega en nuestro embalaje premium exclusivo,
+            diseñado para crear una experiencia de apertura digna de la
+            pieza que contiene.
           </p>
 
           <ul className="mt-10 space-y-5">
@@ -516,24 +516,24 @@ function Story() {
   return (
     <section id="story" className="relative bg-background py-32 sm:py-48">
       <div className="mx-auto max-w-3xl px-6 text-center sm:px-10 scroll-reveal">
-        <p className="eyebrow">The Vision Behind Velaro</p>
+        <p className="eyebrow">La Visión detrás de Velaro</p>
         <h2 className="mt-8 text-4xl text-foreground sm:text-6xl">
-          Confidence begins with how you present yourself.
+          La confianza comienza con cómo te presentas al mundo.
         </h2>
         <div className="gold-rule mx-auto mt-10 w-24" />
         <div className="mt-10 space-y-6 text-base font-light leading-loose text-muted-foreground sm:text-lg">
-          <p>VELARO was founded with a simple vision.</p>
+          <p>VELARO nació con una visión simple.</p>
           <p>
-            To create premium eyewear that combines luxury aesthetics,
-            superior craftsmanship and accessible pricing -- without ever
-            asking the wearer to choose between them.
+            Crear gafas premium que combinan estética de lujo,
+            artesanía superior y precio accesible — sin pedir al
+            usuario que elija entre ellas.
           </p>
           <p className="text-foreground/90">
-            We believe confidence begins with how you present yourself to
-            the world.
+            Creemos que la confianza comienza con cómo te presentas al
+            mundo.
           </p>
         </div>
-        <p className="mt-12 font-display text-2xl italic text-gold">-- The Velaro Atelier</p>
+        <p className="mt-12 font-display text-2xl italic text-gold">— El Atelier Velaro</p>
       </div>
     </section>
   );
@@ -541,11 +541,11 @@ function Story() {
 
 /* ---------- TESTIMONIALS ---------- */
 const testimonials = [
-  { n: "Michael R.", q: "Exceptional quality. People constantly ask where I got them." },
-  { n: "David M.", q: "They look and feel far more expensive than they are." },
-  { n: "James L.", q: "Best sunglasses I have owned." },
-  { n: "Carlos V.", q: "The packaging alone feels premium." },
-  { n: "Alex T.", q: "Elegant, lightweight and stylish." },
+  { n: "Michael R.", q: "Calidad excepcional. La gente no para de preguntarme dónde las compré." },
+  { n: "David M.", q: "Se ven y se sienten mucho más caras de lo que son." },
+  { n: "James L.", q: "Las mejores gafas de sol que he tenido." },
+  { n: "Carlos V.", q: "Solo el embalaje ya se siente premium." },
+  { n: "Alex T.", q: "Elegantes, ligeras y con estilo." },
 ];
 
 function Testimonials() {
@@ -553,9 +553,9 @@ function Testimonials() {
   return (
     <section className="overflow-hidden border-y border-border bg-card py-28 sm:py-32">
       <div className="mx-auto mb-16 max-w-7xl px-6 text-center sm:px-10">
-        <p className="eyebrow scroll-reveal">Worn worldwide</p>
+        <p className="eyebrow scroll-reveal">Usadas en todo el mundo</p>
         <h2 className="scroll-reveal mt-6 text-4xl text-foreground sm:text-5xl">
-          The Velaro verdict.
+          El veredicto Velaro.
         </h2>
       </div>
 
@@ -573,7 +573,7 @@ function Testimonials() {
                 &ldquo;{t.q}&rdquo;
               </blockquote>
               <figcaption className="mt-6 text-xs uppercase tracking-[0.32em] text-muted-foreground">
-                {t.n} &middot; Verified Owner
+                {t.n} &middot; Comprador Verificado
               </figcaption>
             </figure>
           ))}
@@ -592,7 +592,7 @@ function Instagram() {
       <div className="mx-auto mb-14 max-w-7xl px-6 text-center sm:px-10">
         <p className="eyebrow scroll-reveal">@velaro.eyewear</p>
         <h2 className="scroll-reveal mt-6 text-4xl text-foreground sm:text-5xl">
-          Join the Velaro lifestyle.
+          Únete al estilo de vida Velaro.
         </h2>
       </div>
 
@@ -613,14 +613,14 @@ function Instagram() {
             />
             <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/40" />
             <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <span className="text-xs uppercase tracking-[0.32em] text-gold">View</span>
+              <span className="text-xs uppercase tracking-[0.32em] text-gold">Ver</span>
             </div>
           </a>
         ))}
       </div>
 
       <div className="mt-12 text-center scroll-reveal">
-        <a href="#" className="btn-ghost-gold">Follow Us</a>
+        <a href="#" className="btn-ghost-gold">Síguenos</a>
       </div>
     </section>
   );
@@ -635,13 +635,13 @@ function Newsletter() {
         style={{ background: "var(--gradient-radial-gold)" }}
       />
       <div className="mx-auto max-w-2xl px-6 text-center sm:px-10 scroll-reveal">
-        <p className="eyebrow">The Inner Circle</p>
+        <p className="eyebrow">El Círculo Interior</p>
         <h2 className="mt-6 text-4xl text-foreground sm:text-6xl">
-          Become part of the inner circle.
+          Forma parte del círculo interior.
         </h2>
         <p className="mt-6 text-base font-light leading-relaxed text-muted-foreground">
-          Get early access to new releases, private drops and exclusive
-          offers reserved for members.
+          Accede antes que nadie a nuevos lanzamientos, drops privados y ofertas
+          exclusivas para miembros.
         </p>
 
         <form
@@ -651,13 +651,13 @@ function Newsletter() {
           <input
             type="email"
             required
-            placeholder="your@email.com"
+            placeholder="tu@email.com"
             className="border border-border bg-transparent px-6 py-4 text-sm tracking-wider text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none"
           />
-          <button type="submit" className="btn-gold">Subscribe</button>
+          <button type="submit" className="btn-gold">Suscribirse</button>
         </form>
         <p className="mt-4 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-          No spam &middot; Unsubscribe anytime
+          Sin spam &middot; Cancela cuando quieras
         </p>
       </div>
     </section>
@@ -667,10 +667,10 @@ function Newsletter() {
 /* ---------- FOOTER ---------- */
 function Footer() {
   const cols = [
-    { h: "Shop", l: ["The Aura Collection", "Limited Edition", "Accessories", "Gift Cards"] },
-    { h: "Velaro", l: ["About", "Journal", "Press", "Sustainability"] },
-    { h: "Support", l: ["Shipping", "Returns", "Warranty", "Contact"] },
-    { h: "Follow", l: ["Instagram", "TikTok", "Pinterest", "YouTube"] },
+    { h: "Tienda", l: ["La Colección Aura", "Edición Limitada", "Accesorios", "Tarjetas Regalo"] },
+    { h: "Velaro", l: ["Nosotros", "Diario", "Prensa", "Sostenibilidad"] },
+    { h: "Soporte", l: ["Envíos", "Devoluciones", "Garantía", "Contacto"] },
+    { h: "Síguenos", l: ["Instagram", "TikTok", "Pinterest", "YouTube"] },
   ];
   return (
     <footer id="contact" className="border-t border-border bg-background pt-24 pb-10">
@@ -679,8 +679,8 @@ function Footer() {
           <div className="scroll-reveal">
             <span className="font-display text-3xl text-gold tracking-[0.15em]">VELARO</span>
             <p className="mt-6 max-w-sm text-sm font-light leading-relaxed text-muted-foreground">
-              Premium polarized eyewear, hand-finished and built for the
-              ones who prefer to be seen on their own terms.
+              Gafas polarizadas premium, acabadas a mano para quienes
+              prefieren ser vistos en sus propios términos.
             </p>
             <div className="gold-rule mt-8 w-24" />
           </div>
@@ -704,10 +704,10 @@ function Footer() {
         </div>
 
         <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-[10px] uppercase tracking-[0.32em] text-muted-foreground sm:flex-row">
-          <p>&copy; {new Date().getFullYear()} Velaro Atelier. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Velaro Atelier. Todos los derechos reservados.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-gold">Privacy Policy</a>
-            <a href="#" className="hover:text-gold">Terms</a>
+            <a href="#" className="hover:text-gold">Política de Privacidad</a>
+            <a href="#" className="hover:text-gold">Términos</a>
             <a href="#" className="hover:text-gold">Cookies</a>
           </div>
         </div>
@@ -740,7 +740,7 @@ function CartDrawer({
       {/* Drawer */}
       <aside className={`cart-drawer ${cartOpen ? "cart-drawer-open" : ""}`}>
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
-          <h2 className="font-display text-2xl text-foreground">Your Bag</h2>
+          <h2 className="font-display text-2xl text-foreground">Tu Carrito</h2>
           <button
             onClick={onClose}
             className="text-muted-foreground hover:text-foreground transition-colors bg-transparent border-none cursor-pointer text-2xl leading-none"
@@ -751,7 +751,7 @@ function CartDrawer({
 
         <div className="flex-1 overflow-y-auto px-6 py-6">
           {cart.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center mt-12">Your bag is empty.</p>
+            <p className="text-sm text-muted-foreground text-center mt-12">Tu carrito está vacío.</p>
           ) : (
             <ul className="space-y-6">
               {cart.map((item) => (
@@ -770,7 +770,7 @@ function CartDrawer({
                     onClick={() => onRemove(item.name)}
                     className="text-xs uppercase tracking-wider text-muted-foreground hover:text-destructive transition-colors bg-transparent border-none cursor-pointer self-start pt-1"
                   >
-                    Remove
+                    Eliminar
                   </button>
                 </li>
               ))}
@@ -784,7 +784,7 @@ function CartDrawer({
               <span className="text-xs uppercase tracking-[0.28em] text-muted-foreground">Total</span>
               <span className="text-xl font-light text-gold">&euro;{total.toFixed(2)}</span>
             </div>
-            <button className="btn-gold w-full">Checkout</button>
+            <button className="btn-gold w-full">Finalizar Compra</button>
           </div>
         )}
       </aside>
