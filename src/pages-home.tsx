@@ -646,14 +646,20 @@ function Newsletter() {
 
         <form
           className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_auto]"
-          onSubmit={(e) => e.preventDefault()}
+          action="https://velaroeyewear.us11.list-manage.com/subscribe/post?u=14554041f109b86009&id=2f6e786d55"
+          method="POST"
+          target="_blank"
         >
           <input
             type="email"
+            name="EMAIL"
             required
             placeholder="tu@email.com"
             className="border border-border bg-transparent px-6 py-4 text-sm tracking-wider text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none"
           />
+          <div style={{ position: "absolute", left: "-5000px" }} aria-hidden="true">
+            <input type="text" name="b_14554041f109b86009_2f6e786d55" tabIndex={-1} defaultValue="" />
+          </div>
           <button type="submit" className="btn-gold">Suscribirse</button>
         </form>
         <p className="mt-4 text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
